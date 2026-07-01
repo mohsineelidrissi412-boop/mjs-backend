@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mon Profil</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/profile.css">
+
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo-section">
+
+        <img src="../images/logo.png"
+             class="logo"
+             alt="Logo">
+
+        <div class="logo-text">
+
+            <span class="title">
+                Maison des Jeunes Alqods
+            </span>
+
+            <span class="subtitle">
+                Benguerir
+            </span>
+
+        </div>
+
+    </div>
+
+    <div class="nav-links">
+
+        <a href="dashboard.html">
+            Tableau de bord
+        </a>
+
+        <a href="../public/index.html">
+            Accueil
+        </a>
+
+    </div>
+
+</nav>
+
+<!-- ================= PROFIL ================= -->
+
+<div class="profile-container">
+
+    <div class="profile-card">
+
+        <h1>
+
+            Mon Profil
+
+        </h1>
+
+        <div class="photo-section">
+
+            <img
+                src="../images/members/default.png"
+                id="profile-photo"
+                class="profile-photo">
+
+            <label
+                for="photo-input"
+                class="change-photo">
+
+                Changer la photo
+
+            </label>
+
+            <input
+                type="file"
+                id="photo-input"
+                accept="image/*"
+                hidden>
+
+        </div>
+
+        <table class="profile-table">
+
+            <tr>
+
+                <td>Nom</td>
+
+                <td id="nom">
+
+                    El Alaoui
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>Prénom</td>
+
+                <td id="prenom">
+
+                    Mohamed
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>Âge</td>
+
+                <td id="age">
+
+                    18 ans
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>Sexe</td>
+
+                <td id="sexe">
+
+                    Masculin
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>Téléphone</td>
+
+                <td id="telephone">
+
+                    0612345678
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>Email</td>
+
+                <td id="email">
+
+                    mohamed@gmail.com
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>Date d'inscription</td>
+
+                <td>
+
+                    15 Septembre 2025
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>Clubs rejoints</td>
+
+                <td>
+
+                    Club Informatique, Club Robotique
+
+                </td>
+
+            </tr>
+
+        </table>
+
+        <button
+            id="edit-profile"
+            class="blue-btn">
+
+            Modifier mes informations
+
+        </button>
+
+    </div>
+
+    <!-- ================= FORMULAIRE ================= -->
+
+    <div
+        id="edit-form"
+        class="edit-form">
+
+        <h2>
+
+            Modifier mes informations
+
+        </h2>
+
+        <form>
+
+            <input
+                id="edit-nom"
+                type="text"
+                placeholder="Nom">
+
+            <input
+                id="edit-prenom"
+                type="text"
+                placeholder="Prénom">
+
+            <input
+                id="edit-age"
+                type="number"
+                placeholder="Âge">
+
+            <select id="edit-sexe">
+
+                <option>Masculin</option>
+
+                <option>Féminin</option>
+
+            </select>
+
+            <input
+                id="edit-phone"
+                type="tel"
+                placeholder="Téléphone">
+
+            <input
+                id="edit-email"
+                type="email"
+                placeholder="Adresse email">
+
+            <button
+                type="button"
+                id="save-profile"
+                class="blue-btn">
+
+                Enregistrer
+
+            </button>
+
+            <button
+                type="button"
+                id="cancel-profile"
+                class="cancel-btn">
+
+                Annuler
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script src="../js/profile.js"></script>
+
+</body>
+
+</html>

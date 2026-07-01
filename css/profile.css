@@ -1,0 +1,250 @@
+/* ==========================
+   PAGE PROFIL
+========================== */
+
+body{
+    background:#f4f6f9;
+}
+
+/* Conteneur */
+
+.profile-container{
+
+    max-width:1100px;
+    margin:40px auto;
+    padding:20px;
+
+}
+
+/* Carte */
+
+.profile-card{
+
+    background:white;
+    border-radius:12px;
+    padding:35px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.profile-card h1{
+
+    text-align:center;
+    color:#0066cc;
+    margin-bottom:30px;
+
+}
+
+/* ==========================
+   PHOTO
+========================== */
+
+.photo-section{
+
+    text-align:center;
+    margin-bottom:30px;
+
+}
+
+.profile-photo{
+
+    width:170px;
+    height:170px;
+    border-radius:50%;
+    object-fit:cover;
+    border:5px solid #0066cc;
+    margin-bottom:20px;
+    transition:.3s;
+
+}
+
+.profile-photo:hover{
+
+    transform:scale(1.05);
+
+}
+
+.change-photo{
+
+    display:inline-block;
+    background:#0066cc;
+    color:white;
+    padding:10px 22px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+
+}
+
+.change-photo:hover{
+
+    background:#0052a3;
+
+}
+
+/* ==========================
+   TABLEAU
+========================== */
+
+.profile-table{
+
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+
+}
+
+.profile-table tr{
+
+    border-bottom:1px solid #e5e5e5;
+
+}
+
+.profile-table td{
+
+    padding:18px;
+
+}
+
+.profile-table td:first-child{
+
+    width:240px;
+    color:#0066cc;
+    font-weight:bold;
+
+}
+
+.profile-table td:last-child{
+
+    color:#555;
+
+}
+
+/* ==========================
+   BOUTONS
+========================== */
+
+.blue-btn{
+
+    margin-top:30px;
+    background:#0066cc;
+    color:white;
+    border:none;
+    padding:13px 25px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+    font-size:16px;
+
+}
+
+.blue-btn:hover{
+
+    background:#0052a3;
+
+}
+
+.cancel-btn{
+
+    background:#777;
+    color:white;
+    border:none;
+    padding:13px 25px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+
+}
+
+.cancel-btn:hover{
+
+    background:#555;
+
+}
+
+/* ==========================
+   FORMULAIRE
+========================== */
+
+.edit-form{
+
+    display:none;
+    background:white;
+    margin-top:35px;
+    padding:35px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.edit-form.show{
+
+    display:block;
+
+}
+
+.edit-form h2{
+
+    color:#0066cc;
+    margin-bottom:25px;
+
+}
+
+.edit-form form{
+
+    display:grid;
+    gap:18px;
+
+}
+
+.edit-form input,
+.edit-form select{
+
+    padding:13px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:15px;
+
+}
+
+.edit-form input:focus,
+.edit-form select:focus{
+
+    outline:none;
+    border-color:#0066cc;
+
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media(max-width:768px){
+
+.profile-card{
+
+    padding:20px;
+
+}
+
+.profile-table td{
+
+    display:block;
+    width:100%;
+
+}
+
+.profile-table td:first-child{
+
+    padding-bottom:5px;
+
+}
+
+.profile-photo{
+
+    width:130px;
+    height:130px;
+
+}
+
+}

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Événements</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+
+    <nav class="navbar">
+
+        <div class="logo-section">
+
+            <img src="../images/logo.png"
+                 alt="Logo"
+                 class="logo">
+
+            <div class="logo-text">
+
+                <span class="title">
+                    Maison des Jeunes Alqods
+                </span>
+
+                <span class="subtitle">
+                    Benguerir
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">Accueil</a>
+
+            <a href="news.html">Actualités</a>
+
+            <a href="events.html" class="active">
+                Événements
+            </a>
+
+            <a href="clubs.html">Clubs</a>
+
+            <a href="pass-jeunes.html">Passe Jeune</a>
+
+            <a href="register.html" class="join-btn">
+                Nous rejoindre
+            </a>
+
+        </div>
+
+    </nav>
+
+    <main class="events-page">
+
+        <!-- Liste des événements -->
+
+        <section id="events-list">
+
+            <h1>Événements</h1>
+
+            <div class="event-card">
+
+                <img src="../images/events/event1.jpg" alt="">
+
+                <div class="event-content">
+
+                    <h3>
+                        Tournoi de Football
+                    </h3>
+
+                    <p>
+                        Tournoi sportif organisé par la Maison des Jeunes.
+                    </p>
+
+                    <button class="read-event">
+                        Lire la suite →
+                    </button>
+
+                    <span class="event-date">
+                        15 Juillet 2026
+                    </span>
+
+                </div>
+
+            </div>
+
+            <a href="#" class="all-events-btn">
+                Tous les événements
+            </a>
+
+        </section>
+
+        <!-- Détail événement -->
+
+        <section id="event-detail">
+
+            <button id="back-event-btn">
+                ← Retour aux événements
+            </button>
+
+            <h1 id="event-title">
+                Tournoi de Football
+            </h1>
+
+            <div class="event-slider">
+
+                <div class="slides">
+
+                    <img src="../images/events/1.jpg"
+                         class="event-slide active">
+
+                    <img src="../images/events/2.jpg"
+                         class="event-slide">
+
+                    <img src="../images/events/3.jpg"
+                         class="event-slide">
+
+                </div>
+
+                <button class="event-prev">
+                    &#10094;
+                </button>
+
+                <button class="event-next">
+                    &#10095;
+                </button>
+
+                <div class="event-dots"></div>
+
+            </div>
+
+            <div class="event-text">
+
+                Description complète de l'événement.
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../js/main.js"></script>
+
+</body>
+</html>
