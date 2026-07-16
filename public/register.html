@@ -1,402 +1,348 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nous Rejoindre - Maison des Jeunes Al Qods</title>
+    <meta name="description" content="Rejoignez la Maison des Jeunes Al Qods et accédez à tous nos clubs et activités.">
 
-    <title>Nous rejoindre</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: #F8FAFC; color: #334155; }
 
+        .public-navbar {
+            background: #fff; border-bottom: 1px solid #E2E8F0; padding: 0 40px;
+            height: 70px; display: flex; align-items: center; justify-content: space-between;
+            position: sticky; top: 0; z-index: 100; box-shadow: none; border: 1px solid #E2E8F0;
+        }
+        .public-navbar .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .brand-icon { width:42px; height:42px; background: #F1F5F9; border-radius: 4px; display:flex; align-items:center; justify-content:center; }
+        .brand-icon i { color:white; font-size:18px; }
+        .brand-text .name { font-size:16px; font-weight: 600; color:#1E3A8A; line-height:1.2; }
+        .brand-text .city { font-size:12px; color:#64748B; }
+        .public-nav-links { display:flex; align-items:center; gap:8px; }
+        .public-nav-links a { padding:8px 16px; border-radius:8px; text-decoration:none; font-size:14px; font-weight:500; color:#64748B; transition:all 0.2s; }
+        .public-nav-links a:hover { background:#F1F5F9; color:#334155; }
+        .public-nav-links a.active { background:#F1F5F9; color:#1E3A8A; }
+        .public-nav-links a.cta-btn { background:#1E3A8A; color:white; margin-left:8px; }
+        .public-nav-links a.cta-btn:hover { background:#1E40AF; }
+
+        /* Hero section */
+        .register-hero {
+            background: #F1F5F9;
+            padding: 60px 40px;
+            text-align: center;
+            color: white;
+        }
+        .register-hero h1 { font-size: 36px; font-weight: 600; margin-bottom: 12px; }
+        .register-hero p { font-size: 16px; opacity: 0.85; max-width: 540px; margin: 0 auto; }
+
+        /* Form layout */
+        .register-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 48px 24px;
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 32px;
+            align-items: start;
+        }
+        @media (max-width: 768px) { .register-container { grid-template-columns: 1fr; } }
+
+        .form-card {
+            background: white;
+            border-radius: 4px;
+            padding: 36px;
+            box-shadow: none; border: 1px solid #E2E8F0;
+        }
+        .form-card h2 { font-size: 22px; font-weight: 600; margin-bottom: 4px; color: #1E293B; }
+        .form-card .subtitle { color: #64748B; font-size: 14px; margin-bottom: 28px; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display:block; font-size:14px; font-weight:500; margin-bottom:8px; color:#334155; }
+        .form-group input, .form-group select {
+            width:100%; padding:12px 16px; border:1px solid #CBD5E1;
+            border-radius: 4px; font-family:'Inter',sans-serif; font-size:14px; transition:all 0.2s;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline:none; border-color:#1E3A8A; box-shadow:0 0 0 3px rgba(79,70,229,0.1);
+        }
+        .input-group { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+
+        /* Photo upload */
+        .photo-upload-box {
+            border: 2px dashed #CBD5E1;
+            border-radius: 4px;
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .photo-upload-box:hover { border-color: #1E3A8A; background: #F5F3FF; }
+        .photo-upload-box i { font-size: 32px; color: #94A3B8; margin-bottom: 8px; display: block; }
+        .photo-upload-box p { font-size: 13px; color: #64748B; margin: 0; }
+
+        /* Clubs selection */
+        .clubs-selection h3 { font-size: 15px; font-weight: 600; margin-bottom: 12px; color: #334155; }
+        .clubs-checkboxes { display: flex; flex-direction: column; gap: 10px; }
+        .club-checkbox-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 12px 16px;
+            border: 1px solid #E2E8F0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .club-checkbox-item:hover { border-color: #1E3A8A; background: #F5F3FF; }
+        .club-checkbox-item input[type="checkbox"] { width: 16px; height: 16px; accent-color: #1E3A8A; }
+        .club-checkbox-item .club-icon { font-size: 20px; }
+        .club-checkbox-item .club-label { font-size: 14px; font-weight: 500; }
+
+        .submit-btn-register {
+            width: 100%;
+            padding: 14px;
+            background: #F1F5F9;
+            color: white; border: none; border-radius: 4px;
+            font-size: 16px; font-weight: 600; cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: opacity 0.2s;
+            margin-top: 8px;
+        }
+        .submit-btn-register:hover { opacity: 0.9; }
+
+        /* Info sidebar */
+        .info-sidebar { display: flex; flex-direction: column; gap: 16px; }
+        .info-card {
+            background: white;
+            border-radius: 4px;
+            padding: 24px;
+            box-shadow: none; border: 1px solid #E2E8F0;
+        }
+        .info-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 12px; color: #1E293B; display: flex; align-items: center; gap: 8px; }
+        .info-card h3 i { color: #1E3A8A; }
+        .info-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .info-list li { font-size: 14px; color: #64748B; display: flex; align-items: flex-start; gap: 8px; }
+        .info-list li i { color: #059669; flex-shrink: 0; margin-top: 2px; }
+
+        /* Success message */
+        .success-box {
+            display: none;
+            background: #D1FAE5;
+            border: 1px solid #6EE7B7;
+            border-radius: 4px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            color: #065F46;
+            font-weight: 500;
+            align-items: center;
+            gap: 10px;
+        }
+            /* Responsive */
+        @media (max-width: 768px) {
+            .public-mobile-toggle { display: block !important; }
+            .public-nav-links {
+                position: fixed; top: 70px; left: 0; right: 0; background: white;
+                flex-direction: column; padding: 20px; box-shadow: none; border: 1px solid #E2E8F0;
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); transition: clip-path 0.3s ease-in-out;
+            }
+            .public-nav-links.active { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+            .public-nav-links a { width: 100%; text-align: center; }
+            .public-nav-links a.cta-btn { margin-left: 0; margin-top: 10px; }
+            
+            .hero { padding: 40px 20px !important; min-height: 400px !important; }
+            .hero h1 { font-size: 32px !important; }
+            .hero p { font-size: 16px !important; }
+            .stats-bar { flex-direction: column; padding: 20px !important; gap: 30px !important; }
+            .section { padding: 40px 20px !important; }
+            .cards-grid { grid-template-columns: 1fr !important; }
+            .clubs-mini { grid-template-columns: repeat(2, 1fr) !important; }
+            .form-grid { grid-template-columns: 1fr !important; }
+            .cta-section { padding: 40px 20px !important; }
+            .page-header { padding: 40px 20px !important; }
+            .page-header h1 { font-size: 28px !important; }
+            .auth-card { padding: 30px 20px !important; }
+            .site-footer { padding: 30px 20px !important; }
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- ================= NAVBAR ================= -->
+    <nav class="public-navbar">
+        <a href="index.html" class="brand">
+            <div class="brand-icon"><i class="fas fa-star"></i></div>
+            <div class="brand-text">
+                <div class="name">Maison des Jeunes</div>
+                <div class="city">Al Qods · Benguerir</div>
+            </div>
+        </a>
+        <div class="public-nav-links">
+            <a href="index.html">Accueil</a>
+            <a href="news.html">Actualités</a>
+            <a href="events.html">Événements</a>
+            <a href="clubs.html">Clubs</a>
+            <a href="pass_jeunes.html">Pass Jeunes</a>
+            <a href="register.html" class="cta-btn active">Nous rejoindre</a>
+        </div>
+            <button class="public-mobile-toggle" style="display:none; background:none; border:none; font-size:24px; color:#334155; cursor:pointer;"><i class="fas fa-bars"></i></button>
+    </nav>
 
-<nav class="navbar">
+    <div class="register-hero">
+        <h1><i class="fas fa-user-plus" style="margin-right:12px;"></i>Rejoignez-nous</h1>
+        <p>Rejoignez la communauté de la Maison des Jeunes Al Qods et explorez vos passions avec d'autres jeunes.</p>
+    </div>
 
-    <div class="logo-section">
+    <div class="register-container">
 
-        <img src="../images/logo.png"
-             class="logo"
-             alt="Logo">
+        <!-- Form -->
+        <div class="form-card">
+            <h2>Créer mon compte</h2>
+            <p class="subtitle">Remplissez le formulaire pour soumettre votre demande d'adhésion.</p>
 
-        <div class="logo-text">
+            <div class="success-box" id="success-msg">
+                <i class="fas fa-check-circle" style="font-size:20px;"></i>
+                Votre demande a été envoyée avec succès ! Nous vous contacterons prochainement.
+            </div>
 
-            <span class="title">
-                Maison des Jeunes Alqods
-            </span>
+            <form id="register-form" onsubmit="submitRegister(event)">
+                <div class="input-group">
+                    <div class="form-group">
+                        <label>Nom</label>
+                        <input type="text" placeholder="Votre nom" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Prénom</label>
+                        <input type="text" placeholder="Votre prénom" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="form-group">
+                        <label>Âge</label>
+                        <input type="number" min="6" max="99" placeholder="Âge" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Sexe</label>
+                        <select required>
+                            <option value="">Sélectionner</option>
+                            <option>Masculin</option>
+                            <option>Féminin</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Téléphone</label>
+                    <input type="tel" placeholder="06XXXXXXXX" required>
+                </div>
+                <div class="form-group">
+                    <label>Adresse e-mail</label>
+                    <input type="email" placeholder="nom@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Photo de profil</label>
+                    <div class="photo-upload-box" onclick="document.getElementById('photo-input').click()">
+                        <i class="fas fa-camera"></i>
+                        <p>Cliquez pour ajouter votre photo</p>
+                        <p style="font-size:11px; color:#94A3B8; margin-top:4px;">JPG, PNG – Max 5MB</p>
+                    </div>
+                    <input type="file" id="photo-input" accept="image/*" hidden>
+                </div>
 
-            <span class="subtitle">
-                Benguerir
-            </span>
+                <!-- Clubs selection -->
+                <div class="clubs-selection" style="margin-bottom:20px;">
+                    <h3><i class="fas fa-users" style="color:#1E3A8A; margin-right:8px;"></i>Clubs souhaités</h3>
+                    <div class="clubs-checkboxes">
+                        <label class="club-checkbox-item">
+                            <input type="checkbox" name="clubs" value="informatique">
+                            <span class="club-icon"><i class="fas fa-laptop-code" style="color: #1E3A8A;"></i></span>
+                            <span class="club-label">Club Informatique</span>
+                        </label>
+                        <label class="club-checkbox-item">
+                            <input type="checkbox" name="clubs" value="robotique">
+                            <span class="club-icon"><i class="fas fa-robot" style="color: #1E3A8A;"></i></span>
+                            <span class="club-label">Club Robotique</span>
+                        </label>
+                        <label class="club-checkbox-item">
+                            <input type="checkbox" name="clubs" value="arts">
+                            <span class="club-icon"><i class="fas fa-palette" style="color: #1E3A8A;"></i></span>
+                            <span class="club-label">Club Arts & Culture</span>
+                        </label>
+                        <label class="club-checkbox-item">
+                            <input type="checkbox" name="clubs" value="musique">
+                            <span class="club-icon"><i class="fas fa-music" style="color: #1E3A8A;"></i></span>
+                            <span class="club-label">Club Musique</span>
+                        </label>
+                        <label class="club-checkbox-item">
+                            <input type="checkbox" name="clubs" value="sport">
+                            <span class="club-icon"><i class="fas fa-futbol" style="color: #1E3A8A;"></i></span>
+                            <span class="club-label">Club Sport</span>
+                        </label>
+                        <label class="club-checkbox-item">
+                            <input type="checkbox" name="clubs" value="theatre">
+                            <span class="club-icon"><i class="fas fa-theater-masks" style="color: #1E3A8A;"></i></span>
+                            <span class="club-label">Club Théâtre</span>
+                        </label>
+                    </div>
+                </div>
 
+                <button type="submit" class="submit-btn-register">
+                    <i class="fas fa-paper-plane" style="margin-right:8px;"></i>
+                    Envoyer ma demande d'adhésion
+                </button>
+            </form>
+        </div>
+
+        <!-- Info sidebar -->
+        <div class="info-sidebar">
+            <div class="info-card">
+                <h3><i class="fas fa-info-circle"></i> Comment ça marche ?</h3>
+                <ul class="info-list">
+                    <li><i class="fas fa-check"></i> Remplissez le formulaire d'inscription</li>
+                    <li><i class="fas fa-check"></i> Votre demande est examinée par notre équipe</li>
+                    <li><i class="fas fa-check"></i> Vous recevez une confirmation par SMS/email</li>
+                    <li><i class="fas fa-check"></i> Vous accédez à votre espace membre</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h3><i class="fas fa-gift"></i> Avantages membres</h3>
+                <ul class="info-list">
+                    <li><i class="fas fa-check"></i> Accès à tous les clubs sélectionnés</li>
+                    <li><i class="fas fa-check"></i> Participation aux événements & ateliers</li>
+                    <li><i class="fas fa-check"></i> Recevoir les annonces des encadrants</li>
+                    <li><i class="fas fa-check"></i> Espace membre personnel</li>
+                    <li><i class="fas fa-check"></i> Certificats de participation</li>
+                </ul>
+            </div>
+            <div class="info-card" style="background: #F1F5F9; color: white;">
+                <h3 style="color:white;"><i class="fas fa-phone" style="color:white;"></i> Besoin d'aide ?</h3>
+                <p style="font-size:14px; opacity:0.9; margin-top:8px;">Contactez-nous au<br><strong>+212 5 22 00 00 00</strong></p>
+                <p style="font-size:13px; opacity:0.8; margin-top:8px;">Ou visitez-nous :<br>Quartier Al Qods, Benguerir</p>
+            </div>
         </div>
 
     </div>
 
-    <div class="nav-links">
-
-        <a href="index.html">
-            Accueil
-        </a>
-
-        <a href="news.html">
-            Actualités
-        </a>
-
-        <a href="events.html">
-            Événements
-        </a>
-
-        <a href="clubs.html">
-            Clubs
-        </a>
-
-        <a href="pass_jeunes.html">
-            Passe Jeune
-        </a>
-
-        <a href="register.html"
-           class="join-btn">
-            Nous rejoindre
-        </a>
-
-    </div>
-
-</nav>
-
-<!-- ================= FORMULAIRE ================= -->
-
-<div class="register-container">
-
-<h1>
-
-Rejoindre la Maison des Jeunes
-
-</h1>
-
-<div
-id="success-message"
-class="success-message">
-
-Votre demande a été envoyée avec succès.
-
-</div>
-
-<form
-id="register-form"
-class="register-form">
-
-<div class="form-group">
-
-<label>
-
-Nom
-
-</label>
-
-<input
-type="text"
-placeholder="Votre nom"
-required>
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Prénom
-
-</label>
-
-<input
-type="text"
-placeholder="Votre prénom"
-required>
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Âge
-
-</label>
-
-<input
-type="number"
-min="6"
-max="99"
-required>
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Sexe
-
-</label>
-
-<select required>
-
-<option value="">
-
-Sélectionner
-
-</option>
-
-<option>
-
-Masculin
-
-</option>
-
-<option>
-
-Féminin
-
-</option>
-
-</select>
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Téléphone
-
-</label>
-
-<input
-type="tel"
-placeholder="06XXXXXXXX"
-required>
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Adresse e-mail
-
-</label>
-
-<input
-type="email"
-placeholder="nom@email.com"
-required>
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Photo
-
-</label>
-
-<input
-type="file"
-id="photo"
-accept="image/*"
-required>
-
-</div>
-
-<img
-id="preview"
-class="photo-preview">
-<!-- ================= CHOIX DES CLUBS ================= -->
-
-<div class="form-group">
-
-    <label class="section-label">
-
-        Sélectionnez le ou les clubs auxquels vous souhaitez adhérer
-
-    </label>
-
-    <div class="clubs-grid">
-
-        <label class="club-card">
-
-            <input
-                type="checkbox"
-                name="clubs[]"
-                value="informatique">
-
-            <img
-                src="../images/clubs/informatique.jpg"
-                alt="Club Informatique"
-                class="club-image">
-
-            <h3>Club Informatique</h3>
-
-            <p>
-
-                Développement Web, Programmation,
-                Intelligence Artificielle...
-
-            </p>
-
-        </label>
-
-        <label class="club-card">
-
-            <input
-                type="checkbox"
-                name="clubs[]"
-                value="robotique">
-
-            <img
-                src="../images/clubs/robotique.jpg"
-                alt="Club Robotique"
-                class="club-image">
-
-            <h3>Club Robotique</h3>
-
-            <p>
-
-                Robotique, électronique
-                et projets innovants.
-
-            </p>
-
-        </label>
-
-        <label class="club-card">
-
-            <input
-                type="checkbox"
-                name="clubs[]"
-                value="musique">
-
-            <img
-                src="../images/clubs/musique.jpg"
-                alt="Club Musique"
-                class="club-image">
-
-            <h3>Club Musique</h3>
-
-            <p>
-
-                Chant, guitare,
-                piano et animation.
-
-            </p>
-
-        </label>
-
-        <label class="club-card">
-
-            <input
-                type="checkbox"
-                name="clubs[]"
-                value="theatre">
-
-            <img
-                src="../images/clubs/theatre.jpg"
-                alt="Club Théâtre"
-                class="club-image">
-
-            <h3>Club Théâtre</h3>
-
-            <p>
-
-                Théâtre,
-                expression artistique
-                et spectacles.
-
-            </p>
-
-        </label>
-
-        <label class="club-card">
-
-            <input
-                type="checkbox"
-                name="clubs[]"
-                value="sport">
-
-            <img
-                src="../images/clubs/sport.jpg"
-                alt="Club Sport"
-                class="club-image">
-
-            <h3>Club Sport</h3>
-
-            <p>
-
-                Football,
-                Basketball,
-                Volleyball...
-
-            </p>
-
-        </label>
-
-        <label class="club-card">
-
-            <input
-                type="checkbox"
-                name="clubs[]"
-                value="langues">
-
-            <img
-                src="../images/clubs/langues.jpg"
-                alt="Club Langues"
-                class="club-image">
-
-            <h3>Club Langues</h3>
-
-            <p>
-
-                Français,
-                Anglais,
-                Espagnol...
-
-            </p>
-
-        </label>
-
-    </div>
-
-</div>
-<!-- ================= BOUTON ================= -->
-
-<div class="form-group">
-
-    <button
-        type="submit"
-        class="submit-btn">
-
-        Envoyer la demande
-
-    </button>
-
-</div>
-
-</form>
-
-</div>
-
-<!-- ================= FOOTER ================= -->
-
-<script src="../js/main.js"></script>
-
+    <script>
+        function submitRegister(e) {
+            e.preventDefault();
+            const msg = document.getElementById('success-msg');
+            msg.style.display = 'flex';
+            e.target.style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const publicToggle = document.querySelector('.public-mobile-toggle');
+            const publicNav = document.querySelector('.public-nav-links');
+            if(publicToggle && publicNav) {
+                publicToggle.addEventListener('click', () => {
+                    publicNav.classList.toggle('active');
+                });
+            }
+        });
+    </script>
 </body>
-
 </html>

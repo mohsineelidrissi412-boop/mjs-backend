@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Événements - Encadrant</title>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .event-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .event-item {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid var(--secondary-color);
+        }
+        .event-info { display: flex; align-items: center; gap: 20px; }
+        .event-date-box {
+            background: #F0FDFA; color: var(--secondary-color);
+            border-radius: 12px; width: 70px; height: 70px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .event-date-box .day { font-size: 24px; font-weight: bold; line-height: 1; }
+        .event-date-box .month { font-size: 12px; text-transform: uppercase; font-weight: 600; }
+        
+        .event-details h3 { margin: 0 0 8px 0; font-size: 18px; }
+        .event-details p { margin: 0; color: var(--text-muted); font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        
+        .event-actions { display: flex; gap: 12px; }
+        
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 200;
+            display: none; align-items: center; justify-content: center;
+        }
+        .modal-content {
+            background: var(--bg-card); border-radius: var(--border-radius);
+            width: 90%; max-width: 500px; padding: 24px;
+        }
+    </style>
+</head>
+<body class="dashboard-body">
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div style="width:40px; height:40px; background:var(--secondary-color); border-radius:8px;"></div>
+            <h2>Encadrant</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item">
+                <i class="fas fa-chart-line"></i> Vue d'ensemble
+            </a>
+            <a href="profile.html" class="nav-item">
+                <i class="fas fa-user-tie"></i> Mon Profil
+            </a>
+            <a href="announcements.html" class="nav-item">
+                <i class="fas fa-bullhorn"></i> Mes Annonces
+            </a>
+            <a href="events.html" class="nav-item active">
+                <i class="fas fa-calendar-check"></i> Mes Événements
+            </a>
+        </nav>
+    </aside>
+
+    <div class="main-wrapper">
+        <header class="topbar">
+            <button class="mobile-toggle"><i class="fas fa-bars"></i></button>
+            <h1 class="topbar-title">Mes Événements</h1>
+            <div class="topbar-actions">
+                <button class="btn btn-primary" style="background-color:var(--secondary-color);" onclick="document.getElementById('eventModal').style.display='flex'">
+                    <i class="fas fa-plus"></i> Créer un Événement
+                </button>
+            </div>
+        </header>
+
+        <main class="content-area">
+            
+            <div class="event-list">
+                
+                <!-- Event 1 -->
+                <div class="event-item">
+                    <div class="event-info">
+                        <div class="event-date-box">
+                            <span class="day">15</span>
+                            <span class="month">Juil</span>
+                        </div>
+                        <div class="event-details">
+                            <h3>Tournoi de Robotique</h3>
+                            <p><i class="far fa-clock"></i> 10:00 - 18:00 &nbsp; | &nbsp; <i class="fas fa-users"></i> Club Technologie</p>
+                        </div>
+                    </div>
+                    <div class="event-actions">
+                        <button class="btn btn-secondary"><i class="fas fa-edit"></i> Modifier</button>
+                        <button class="btn btn-danger"><i class="fas fa-trash"></i> Supprimer</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Modale Création d'événement (Encadrant) -->
+    <div class="modal-overlay" id="eventModal">
+        <div class="modal-content">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <h3 style="margin:0;">Nouveau Projet/Événement</h3>
+                <button style="background:none; border:none; font-size:20px; cursor:pointer;" onclick="document.getElementById('eventModal').style.display='none'">&times;</button>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Titre</label>
+                <input type="text" class="form-control" placeholder="Titre...">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" rows="3" placeholder="Description..."></textarea>
+            </div>
+            
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                <div class="form-group">
+                    <label class="form-label">Date</label>
+                    <input type="date" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Heure</label>
+                    <input type="time" class="form-control">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Club Assigné (Vos clubs uniquement)</label>
+                <select class="form-control">
+                    <option>Sélectionnez un club...</option>
+                    <option>Club Technologie</option>
+                    <option>Club Robotique</option>
+                </select>
+            </div>
+            
+            <button class="btn btn-primary" style="width:100%; justify-content:center; background-color:var(--secondary-color);">Créer l'événement</button>
+        </div>
+    </div>
+
+</body>
+</html>

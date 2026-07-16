@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - Maison des Jeunes Al Qods</title>
+    <meta name="description" content="Connectez-vous à votre espace membre de la Maison des Jeunes Al Qods.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: #F8FAFC; 
+            color: #334155; 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .public-navbar {
+            background: #fff; border-bottom: 1px solid #E2E8F0; padding: 0 40px;
+            height: 70px; display: flex; align-items: center; justify-content: space-between;
+            position: sticky; top: 0; z-index: 100; box-shadow: none; border: 1px solid #E2E8F0;
+        }
+        .public-navbar .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .brand-icon { width:42px; height:42px; background: #F1F5F9; border-radius: 4px; display:flex; align-items:center; justify-content:center; }
+        .brand-icon i { color:white; font-size:18px; }
+        .brand-text .name { font-size:16px; font-weight: 600; color:#1E3A8A; line-height:1.2; }
+        .brand-text .city { font-size:12px; color:#64748B; }
+
+        .auth-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%);
+        }
+        .auth-card {
+            background: white;
+            width: 100%;
+            max-width: 440px;
+            border-radius: 4px;
+            padding: 40px;
+            box-shadow: none; border: 1px solid #E2E8F0;
+            border: 1px solid #F1F5F9;
+        }
+        .auth-header { text-align: center; margin-bottom: 32px; }
+        .auth-icon {
+            width: 56px; height: 56px;
+            background: #F1F5F9;
+            color: #1E3A8A;
+            border-radius: 4px;
+            display: inline-flex; align-items: center; justify-content: center;
+            font-size: 24px; margin-bottom: 16px;
+        }
+        .auth-header h1 { font-size: 24px; font-weight: 600; color: #1E293B; margin-bottom: 8px; }
+        .auth-header p { font-size: 14px; color: #64748B; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: #334155; }
+        .form-control {
+            width: 100%; padding: 12px 16px;
+            border: 1px solid #CBD5E1; border-radius: 4px;
+            font-family: 'Inter', sans-serif; font-size: 15px;
+            transition: all 0.2s;
+        }
+        .form-control:focus { outline: none; border-color: #1E3A8A; box-shadow: 0 0 0 3px rgba(79,70,229,0.1); }
+        
+        .form-options {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 24px; font-size: 13px;
+        }
+        .remember-me { display: flex; align-items: center; gap: 8px; color: #475569; cursor: pointer; }
+        .remember-me input { width: 16px; height: 16px; accent-color: #1E3A8A; }
+        .forgot-link { color: #1E3A8A; font-weight: 600; text-decoration: none; }
+        .forgot-link:hover { text-decoration: underline; }
+
+        .submit-btn {
+            width: 100%; padding: 14px;
+            background: #1E3A8A; color: white;
+            border: none; border-radius: 4px;
+            font-size: 15px; font-weight: 600;
+            cursor: pointer; font-family: 'Inter', sans-serif;
+            transition: background 0.2s;
+        }
+        .submit-btn:hover { background: #1E40AF; }
+
+        .auth-footer { text-align: center; margin-top: 32px; font-size: 14px; color: #64748B; }
+        .auth-footer a { color: #1E3A8A; font-weight: 600; text-decoration: none; }
+        .auth-footer a:hover { text-decoration: underline; }
+            /* Responsive */
+        @media (max-width: 768px) {
+            .public-mobile-toggle { display: block !important; }
+            .public-nav-links {
+                position: fixed; top: 70px; left: 0; right: 0; background: white;
+                flex-direction: column; padding: 20px; box-shadow: none; border: 1px solid #E2E8F0;
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); transition: clip-path 0.3s ease-in-out;
+            }
+            .public-nav-links.active { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+            .public-nav-links a { width: 100%; text-align: center; }
+            .public-nav-links a.cta-btn { margin-left: 0; margin-top: 10px; }
+            
+            .hero { padding: 40px 20px !important; min-height: 400px !important; }
+            .hero h1 { font-size: 32px !important; }
+            .hero p { font-size: 16px !important; }
+            .stats-bar { flex-direction: column; padding: 20px !important; gap: 30px !important; }
+            .section { padding: 40px 20px !important; }
+            .cards-grid { grid-template-columns: 1fr !important; }
+            .clubs-mini { grid-template-columns: repeat(2, 1fr) !important; }
+            .form-grid { grid-template-columns: 1fr !important; }
+            .cta-section { padding: 40px 20px !important; }
+            .page-header { padding: 40px 20px !important; }
+            .page-header h1 { font-size: 28px !important; }
+            .auth-card { padding: 30px 20px !important; }
+            .site-footer { padding: 30px 20px !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="public-navbar">
+        <a href="index.html" class="brand">
+            <div class="brand-icon"><i class="fas fa-star"></i></div>
+            <div class="brand-text">
+                <div class="name">Maison des Jeunes</div>
+                <div class="city">Al Qods · Benguerir</div>
+            </div>
+        </a>
+            <button class="public-mobile-toggle" style="display:none; background:none; border:none; font-size:24px; color:#334155; cursor:pointer;"><i class="fas fa-bars"></i></button>
+    </nav>
+
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-icon"><i class="fas fa-sign-in-alt"></i></div>
+                <h1>Bon retour !</h1>
+                <p>Connectez-vous pour accéder à votre espace.</p>
+            </div>
+
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Adresse e-mail</label>
+                    <input type="email" class="form-control" placeholder="nom@exemple.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Mot de passe</label>
+                    <input type="password" class="form-control" placeholder="••••••••" required>
+                </div>
+
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox"> Se souvenir de moi
+                    </label>
+                    <a href="forgot-password.html" class="forgot-link">Mot de passe oublié ?</a>
+                </div>
+
+                <button type="submit" class="submit-btn">Se connecter</button>
+            </form>
+
+            <div class="auth-footer">
+                Vous n'avez pas de compte ? <a href="register.html">Créer un compte</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleLogin(e) {
+            e.preventDefault();
+            // Demo redirect to member dashboard
+            window.location.href = '../member/dashboard.html';
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const publicToggle = document.querySelector('.public-mobile-toggle');
+            const publicNav = document.querySelector('.public-nav-links');
+            if(publicToggle && publicNav) {
+                publicToggle.addEventListener('click', () => {
+                    publicNav.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

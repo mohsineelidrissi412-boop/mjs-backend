@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - Espace Membre</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root { --member-color: #7C3AED; }
+        .sidebar-header h2 { color: var(--member-color); }
+        .nav-item:hover { color: var(--member-color); }
+        .nav-item.active { background-color: #EDE9FE; color: var(--member-color); border-right-color: var(--member-color); }
+        .sidebar-footer { padding: 16px 24px; border-top: 1px solid #E2E8F0; }
+        .logout-btn { display:flex; align-items:center; gap:12px; color:var(--text-muted); text-decoration:none; font-size:14px; font-weight:500; padding:10px 0; transition:var(--transition); }
+        .logout-btn:hover { color: var(--danger); }
+
+        .notif-list { display: flex; flex-direction: column; gap: 12px; max-width: 800px; }
+        .notif-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 18px 20px;
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+        }
+        .notif-item.unread { border-left-color: var(--member-color); background: #FAFAFF; }
+        .notif-item:hover { box-shadow: var(--shadow-md); }
+        .notif-icon {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .notif-icon.purple { background: #EDE9FE; color: var(--member-color); }
+        .notif-icon.blue   { background: #DBEAFE; color: #2563EB; }
+        .notif-icon.green  { background: #D1FAE5; color: #059669; }
+        .notif-icon.amber  { background: #FEF3C7; color: #D97706; }
+        .notif-content { flex: 1; }
+        .notif-content p { margin: 0 0 4px 0; font-size: 14px; color: var(--text-main); }
+        .notif-content span { font-size: 12px; color: var(--text-muted); }
+        .unread-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--member-color);
+            flex-shrink: 0;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body class="dashboard-body">
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div style="width:40px;height:40px;background:#7C3AED;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                <i class="fas fa-user" style="color:white;font-size:18px;"></i>
+            </div>
+            <h2>EspaceMembre</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Tableau de bord</a>
+            <a href="profile.html" class="nav-item"><i class="fas fa-user-circle"></i> Mon Profil</a>
+            <a href="my_clubs.html" class="nav-item"><i class="fas fa-users"></i> Mes Clubs</a>
+            <a href="my-events.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Mes Événements</a>
+            <a href="notifications.html" class="nav-item active">
+                <i class="fas fa-bell"></i> Notifications
+                <span class="notification-badge" style="position:relative;top:0;right:0;margin-left:auto;">2</span>
+            </a>
+            <a href="announcements.html" class="nav-item"><i class="fas fa-bullhorn"></i> Annonces</a>
+            <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Paramètres</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="../public/login.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+        </div>
+    </aside>
+
+    <div class="main-wrapper">
+        <header class="topbar">
+            <button class="mobile-toggle"><i class="fas fa-bars"></i></button>
+            <h1 class="topbar-title">Notifications</h1>
+            <div class="topbar-actions">
+                <button class="btn btn-secondary" style="font-size:13px;">
+                    <i class="fas fa-check-double"></i> Tout marquer comme lu
+                </button>
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Mohamed+El+Alaoui&background=7C3AED&color=fff" alt="Avatar">
+                    <div class="user-info">
+                        <p class="name">Mohamed El Alaoui</p>
+                        <p class="role">Membre</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="content-area">
+
+            <div class="notif-list">
+
+                <div class="notif-item unread">
+                    <div class="notif-icon purple"><i class="fas fa-bullhorn"></i></div>
+                    <div class="notif-content">
+                        <p><strong>Nouvelle annonce :</strong> Réunion de préparation pour le Hackathon ce vendredi.</p>
+                        <span>Il y a 2 heures</span>
+                    </div>
+                    <div class="unread-dot"></div>
+                </div>
+
+                <div class="notif-item unread">
+                    <div class="notif-icon green"><i class="fas fa-check-circle"></i></div>
+                    <div class="notif-content">
+                        <p><strong>Demande acceptée !</strong> Votre demande d'adhésion au Club Robotique a été approuvée.</p>
+                        <span>Il y a 1 jour</span>
+                    </div>
+                    <div class="unread-dot"></div>
+                </div>
+
+                <div class="notif-item">
+                    <div class="notif-icon blue"><i class="fas fa-calendar-plus"></i></div>
+                    <div class="notif-content">
+                        <p>L'événement <strong>Formation Intelligence Artificielle</strong> débute dans 3 jours.</p>
+                        <span>Il y a 3 jours</span>
+                    </div>
+                </div>
+
+                <div class="notif-item">
+                    <div class="notif-icon amber"><i class="fas fa-star"></i></div>
+                    <div class="notif-content">
+                        <p>Le <strong>Club Informatique</strong> a publié un nouveau post : "Hackathon 2026 – Préparez-vous !"</p>
+                        <span>Il y a 5 jours</span>
+                    </div>
+                </div>
+
+                <div class="notif-item">
+                    <div class="notif-icon purple"><i class="fas fa-user-check"></i></div>
+                    <div class="notif-content">
+                        <p>Bienvenue sur la plateforme ! Votre compte a été activé avec succès.</p>
+                        <span>15 Septembre 2025</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+</body>
+</html>

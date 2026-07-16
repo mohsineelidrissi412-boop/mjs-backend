@@ -3,76 +3,371 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maison des Jeunes Alqods</title>
-   <link rel="stylesheet" href="../css/style.css">
+    <title>Maison des Jeunes Al Qods - Benguerir</title>
+    <meta name="description" content="Bienvenue à la Maison des Jeunes Al Qods de Benguerir. Clubs, événements, actualités et bien plus.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: #F8FAFC; color: #334155; }
+
+        /* ===== NAVBAR ===== */
+        .public-navbar {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #E2E8F0;
+            padding: 0 40px;
+            height: 70px;
+            display: flex; align-items: center; justify-content: space-between;
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            box-shadow: none; border: 1px solid #E2E8F0;
+        }
+        .public-navbar .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .brand-icon { width:42px; height:42px; background: #F1F5F9; border-radius: 4px; display:flex; align-items:center; justify-content:center; }
+        .brand-icon i { color:white; font-size:18px; }
+        .brand-text .name { font-size:16px; font-weight: 600; color:#1E3A8A; line-height:1.2; }
+        .brand-text .city { font-size:12px; color:#64748B; }
+        .public-nav-links { display:flex; align-items:center; gap:8px; }
+        .public-nav-links a { padding:8px 16px; border-radius:8px; text-decoration:none; font-size:14px; font-weight:500; color:#64748B; transition:all 0.2s; }
+        .public-nav-links a:hover { background:#F1F5F9; color:#334155; }
+        .public-nav-links a.active { background:#F1F5F9; color:#1E3A8A; }
+        .public-nav-links a.cta-btn { background:#1E3A8A; color:white; margin-left:8px; }
+        .public-nav-links a.cta-btn:hover { background:#1E40AF; }
+
+        /* ===== HERO ===== */
+        .hero {
+            margin-top: 70px;
+            min-height: 580px;
+            background-color: #0F172A;
+            display: flex; align-items: center;
+            padding: 80px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: url("https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXJqeWdwZzk1Zm45NmFsNzNuYTRpbHhmcTV3dTI2MHBmOTVqbjdheSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3oEduXpUkXpRgAxfAk/giphy.gif") center/cover no-repeat;
+            z-index: 0;
+        }
+        .hero::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: rgba(15, 23, 42, 0.8); /* Dark crisp overlay */
+            z-index: 0;
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 600px; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 4px; padding: 6px 16px;
+            font-size: 13px; font-weight: 500; color: white;
+            margin-bottom: 24px;
+        }
+        .hero h1 {
+            font-size: 52px; font-weight: 600; color: white;
+            line-height: 1.15; margin-bottom: 20px;
+        }
+        .hero h1 span { color: #A5B4FC; }
+        .hero p { font-size: 18px; color: rgba(255,255,255,0.8); line-height: 1.6; margin-bottom: 36px; }
+        .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+        .hero-btn-primary {
+            background: white; color: #1E3A8A;
+            padding: 14px 28px; border-radius: 4px;
+            font-size: 15px; font-weight: 600;
+            text-decoration: none; transition: all 0.2s;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .hero-btn-primary:hover {  box-shadow: none; border: 1px solid #E2E8F0; }
+        .hero-btn-secondary {
+            background: rgba(255,255,255,0.15); color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 14px 28px; border-radius: 4px;
+            font-size: 15px; font-weight: 600;
+            text-decoration: none; transition: all 0.2s;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .hero-btn-secondary:hover { background: rgba(255,255,255,0.25); }
+
+        /* ===== STATS BAR ===== */
+        .stats-bar {
+            background: white;
+            box-shadow: none; border: 1px solid #E2E8F0;
+            padding: 28px 80px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap: 20px;
+        }
+        .stat-item { text-align: center; }
+        .stat-item .num { font-size: 32px; font-weight: 600; color: #1E3A8A; }
+        .stat-item .label { font-size: 14px; color: #64748B; margin-top: 4px; }
+
+        /* ===== SECTIONS ===== */
+        .section { padding: 72px 80px; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 36px; }
+        .section-title { font-size: 28px; font-weight: 600; color: #1E293B; }
+        .section-title span { color: #1E3A8A; }
+        .see-all { font-size: 14px; font-weight: 600; color: #1E3A8A; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: gap 0.2s; }
+        .see-all:hover { gap: 10px; }
+
+        /* Cards */
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+        .card-pub {
+            background: white; border-radius: 4px; overflow: hidden;
+            box-shadow: none; border: 1px solid #E2E8F0; transition: all 0.25s;
+        }
+        .card-pub:hover { box-shadow: none; border: 1px solid #E2E8F0;  }
+        .card-pub img { width: 100%; height: 180px; object-fit: cover; }
+        .card-body { padding: 24px; }
+        .card-tag { display:inline-block; background:#F1F5F9; color:#1E3A8A; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; padding:4px 10px; border-radius: 4px; margin-bottom:10px; }
+        .card-body h3 { font-size:17px; font-weight: 600; margin-bottom:8px; color:#1E293B; line-height:1.4; }
+        .card-body p { font-size:14px; color:#64748B; line-height:1.6; margin-bottom:16px; }
+        .card-footer { display:flex; justify-content:space-between; align-items:center; border-top:1px solid #F1F5F9; padding-top:14px; }
+        .card-date { font-size:12px; color:#94A3B8; display:flex; align-items:center; gap:6px; }
+        .card-link { font-size:13px; font-weight:600; color:#1E3A8A; text-decoration:none; display:flex; align-items:center; gap:6px; transition:gap 0.2s; }
+        .card-link:hover { gap:10px; }
+
+        /* Clubs mini grid */
+        .clubs-mini { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
+        .club-mini-card {
+            background: white; border-radius: 4px; padding: 24px 20px;
+            text-align: center; box-shadow: none; border: 1px solid #E2E8F0;
+            transition: all 0.25s; cursor: pointer; text-decoration: none; color: #334155;
+        }
+        .club-mini-card:hover { box-shadow: none; border: 1px solid #E2E8F0;  }
+        .club-mini-card .icon { font-size: 36px; margin-bottom: 10px; display: block; }
+        .club-mini-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+        .club-mini-card p { font-size: 12px; color: #94A3B8; }
+
+        /* CTA section */
+        .cta-section {
+            background: #F1F5F9;
+            padding: 72px 80px; text-align: center; color: white;
+        }
+        .cta-section h2 { font-size: 36px; font-weight: 600; margin-bottom: 12px; }
+        .cta-section p { font-size: 16px; opacity: 0.85; max-width: 500px; margin: 0 auto 32px; }
+        .cta-section a {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: white; color: #1E3A8A;
+            padding: 16px 32px; border-radius: 4px;
+            font-size: 16px; font-weight: 600; text-decoration: none;
+            transition: all 0.2s;
+        }
+        .cta-section a:hover {  box-shadow: none; border: 1px solid #E2E8F0; }
+
+        /* Footer */
+        .site-footer {
+            background: #1E293B; color: #94A3B8;
+            padding: 40px 80px;
+            text-align: center;
+        }
+        .site-footer p { font-size: 14px; }
+        .site-footer a { color: #A5B4FC; text-decoration: none; }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .public-mobile-toggle { display: block !important; }
+            .public-nav-links {
+                position: fixed; top: 70px; left: 0; right: 0; background: white;
+                flex-direction: column; padding: 20px; box-shadow: none; border: 1px solid #E2E8F0;
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); transition: clip-path 0.3s ease-in-out;
+            }
+            .public-nav-links.active { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+            .public-nav-links a { width: 100%; text-align: center; }
+            .public-nav-links a.cta-btn { margin-left: 0; margin-top: 10px; }
+            
+            .hero { padding: 40px 20px !important; min-height: 480px !important; }
+            .hero h1 { font-size: 36px !important; }
+            .hero p { font-size: 16px !important; }
+            .stats-bar { flex-direction: column; padding: 30px 20px !important; gap: 30px !important; }
+            .section { padding: 40px 20px !important; }
+            .cards-grid { grid-template-columns: 1fr !important; }
+            .clubs-mini { grid-template-columns: repeat(2, 1fr) !important; }
+            .cta-section { padding: 40px 20px !important; }
+            .site-footer { padding: 30px 20px !important; }
+        }
+    </style>
 </head>
 <body>
 
-<nav class="navbar">
+    <!-- NAVBAR -->
+    <nav class="public-navbar">
+        <a href="index.html" class="brand">
+            <div class="brand-icon"><i class="fas fa-star"></i></div>
+            <div class="brand-text">
+                <div class="name">Maison des Jeunes</div>
+                <div class="city">Al Qods · Benguerir</div>
+            </div>
+        </a>
+        <div class="public-nav-links">
+            <a href="index.html" class="active">Accueil</a>
+            <a href="news.html">Actualités</a>
+            <a href="events.html">Événements</a>
+            <a href="clubs.html">Clubs</a>
+            <a href="pass_jeunes.html">Pass Jeunes</a>
+            <a href="register.html" class="cta-btn">Nous rejoindre</a>
+        </div>
+        <button class="public-mobile-toggle" style="display:none; background:none; border:none; font-size:24px; color:#334155; cursor:pointer;"><i class="fas fa-bars"></i></button>
+    </nav>
 
-    <div class="logo-section">
-        
-        <img src="logo.png" alt="Logo" class="logo">
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-map-marker-alt"></i>
+                Benguerir, Maroc
+            </div>
+            <h1>Maison des Jeunes <span>Al Qods</span></h1>
+            <p>Un espace de créativité, d'apprentissage et d'épanouissement pour les jeunes de notre communauté. Rejoignez nos clubs et participez à nos événements.</p>
+            <div class="hero-actions">
+                <a href="register.html" class="hero-btn-primary">
+                    <i class="fas fa-user-plus"></i> Nous rejoindre
+                </a>
+                <a href="clubs.html" class="hero-btn-secondary">
+                    <i class="fas fa-users"></i> Découvrir les clubs
+                </a>
+            </div>
+        </div>
+    </section>
 
-        <div class="logo-text">
-            <span class="title">Maison des Jeunes Alqods</span>
-            <span class="subtitle">Benguerir</span>
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="num">1,245+</div>
+            <div class="label">Membres inscrits</div>
+        </div>
+        <div class="stat-item">
+            <div class="num">12</div>
+            <div class="label">Clubs actifs</div>
+        </div>
+        <div class="stat-item">
+            <div class="num">34</div>
+            <div class="label">Événements ce mois</div>
+        </div>
+        <div class="stat-item">
+            <div class="num">8+</div>
+            <div class="label">Années d'activité</div>
         </div>
     </div>
 
-    <div class="nav-links">
-     <a href="index.html" class="active">Accueil</a>
-     <a href="news.html">Actualités</a>
-     <a href="events.html">Événements</a>
-     <a href="clubs.html">Clubs</a>
-     <a href="pass_jeunes.html">Pass Jeunes</a>
+    <!-- ACTUALITÉS -->
+    <section class="section" style="background: #F8FAFC;">
+        <div class="section-header">
+            <h2 class="section-title">Actualités <span>à la Une</span></h2>
+            <a href="news.html" class="see-all">Tout voir <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="cards-grid">
+            <div class="card-pub">
+                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80" alt="Hackathon">
+                <div class="card-body">
+                    <span class="card-tag">Événement</span>
+                    <h3>Hackathon 2026 – 48h de code non-stop !</h3>
+                    <p>Le Club Informatique organise son hackathon annuel. Préparez-vous pour une aventure technique intense.</p>
+                    <div class="card-footer">
+                        <span class="card-date"><i class="far fa-calendar"></i> 22 Juin 2026</span>
+                        <a href="news.html" class="card-link">Lire <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-pub">
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80" alt="Formation IA">
+                <div class="card-body">
+                    <span class="card-tag">Formation</span>
+                    <h3>Formation Intelligence Artificielle – Inscriptions ouvertes</h3>
+                    <p>Une formation de 3 jours dédiée aux bases de l'IA et du machine learning pour les jeunes.</p>
+                    <div class="card-footer">
+                        <span class="card-date"><i class="far fa-calendar"></i> 10 Juin 2026</span>
+                        <a href="news.html" class="card-link">Lire <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-pub">
+                <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=800&q=80" alt="Atelier Art">
+                <div class="card-body">
+                    <span class="card-tag">Atelier</span>
+                    <h3>Atelier Peinture & Expression Artistique</h3>
+                    <p>Le Club Arts & Culture vous invite à un atelier de peinture collective pour explorer votre créativité.</p>
+                    <div class="card-footer">
+                        <span class="card-date"><i class="far fa-calendar"></i> 05 Juin 2026</span>
+                        <a href="news.html" class="card-link">Lire <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <a href="register.html" class="join-btn">
-    Nous rejoindre
-</a>
-    </div>
-
-</nav>
-<section class="slider" id="slider">
-</section>
-<section class="featured-news">
-
-    <h2 class="section-title">Actualités à la Une</h2>
-
-    <div class="news-card">
-
-        <img src="../images/news/news1.jpg" alt="Actualité">
-
-        <div class="news-content">
-
-            <h3>
-                Prolongation du délai de dépôt des candidatures
-            </h3>
-
-            <p>
-                Le Ministère de la Jeunesse annonce la prolongation du délai
-                de dépôt des candidatures...
-            </p>
-
-            <a href="news-details.html?id=1">
-                Lire la suite →
+    <!-- CLUBS -->
+    <section class="section" style="background: white;">
+        <div class="section-header">
+            <h2 class="section-title">Nos <span>Clubs</span></h2>
+            <a href="clubs.html" class="see-all">Tous les clubs <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="clubs-mini">
+            <a href="clubs.html" class="club-mini-card">
+                <span class="icon"><i class="fas fa-laptop-code" style="color: #1E3A8A;"></i></span>
+                <h4>Informatique</h4>
+                <p>42 membres</p>
             </a>
-
-            <span class="news-date">
-                22 Juin 2026
-            </span>
-
+            <a href="clubs.html" class="club-mini-card">
+                <span class="icon"><i class="fas fa-robot" style="color: #1E3A8A;"></i></span>
+                <h4>Robotique</h4>
+                <p>28 membres</p>
+            </a>
+            <a href="clubs.html" class="club-mini-card">
+                <span class="icon"><i class="fas fa-palette" style="color: #1E3A8A;"></i></span>
+                <h4>Arts & Culture</h4>
+                <p>18 membres</p>
+            </a>
+            <a href="clubs.html" class="club-mini-card">
+                <span class="icon"><i class="fas fa-music" style="color: #1E3A8A;"></i></span>
+                <h4>Musique</h4>
+                <p>22 membres</p>
+            </a>
+            <a href="clubs.html" class="club-mini-card">
+                <span class="icon"><i class="fas fa-futbol" style="color: #1E3A8A;"></i></span>
+                <h4>Sport</h4>
+                <p>35 membres</p>
+            </a>
+            <a href="clubs.html" class="club-mini-card">
+                <span class="icon"><i class="fas fa-theater-masks" style="color: #1E3A8A;"></i></span>
+                <h4>Théâtre</h4>
+                <p>15 membres</p>
+            </a>
         </div>
+    </section>
 
-    </div>
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2>Prêt à rejoindre l'aventure ?</h2>
+        <p>Inscrivez-vous gratuitement et accédez à tous nos clubs, événements et services.</p>
+        <a href="register.html">
+            <i class="fas fa-rocket"></i> Commencer maintenant
+        </a>
+    </section>
 
-    <a href="news.html" class="all-news-btn">
-        Toutes les actualités
-    </a>
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <p>© 2026 Maison des Jeunes Al Qods · Benguerir, Maroc &nbsp;|&nbsp; 
+           <a href="mailto:contact@mj-alqods.ma">contact@mj-alqods.ma</a>
+        </p>
+    </footer>
 
-</section>
-
-<script src="../js/main.js"></script>
-
+    <script src="../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const publicToggle = document.querySelector('.public-mobile-toggle');
+            const publicNav = document.querySelector('.public-nav-links');
+            if(publicToggle && publicNav) {
+                publicToggle.addEventListener('click', () => {
+                    publicNav.classList.toggle('active');
+                });
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,288 +1,243 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Espace Membre</title>
+    <title>Tableau de Bord - Espace Membre</title>
 
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/membre.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <style>
+        :root {
+            --member-color: #7C3AED;
+            --member-hover: #6D28D9;
+        }
+        .sidebar-header h2 { color: var(--member-color); }
+        .nav-item:hover { color: var(--member-color); }
+        .nav-item.active {
+            background-color: #EDE9FE;
+            color: var(--member-color);
+            border-right-color: var(--member-color);
+        }
+        .stat-icon { background-color: #EDE9FE; color: var(--member-color); }
+        .activity-list { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px;
+            background: #F8FAFC;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+        .activity-icon {
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+        .activity-icon.green { background: #D1FAE5; color: #059669; }
+        .activity-icon.blue  { background: #DBEAFE; color: #2563EB; }
+        .activity-icon.amber { background: #FEF3C7; color: #D97706; }
+        .activity-text { flex: 1; }
+        .activity-text p { margin: 0; color: var(--text-main); }
+        .activity-text span { font-size: 12px; color: var(--text-muted); }
+
+        .next-event-card {
+            background: linear-gradient(135deg, #7C3AED 0%, #4F46E5 100%);
+            border-radius: var(--border-radius);
+            padding: 28px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+        .next-event-card .event-date-big {
+            background: rgba(255,255,255,0.2);
+            border-radius: 12px;
+            width: 80px; height: 80px;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .next-event-card .event-date-big .day { font-size: 28px; font-weight: 800; line-height: 1; }
+        .next-event-card .event-date-big .month { font-size: 12px; font-weight: 600; text-transform: uppercase; }
+        .next-event-card h3 { margin: 0 0 6px 0; font-size: 20px; }
+        .next-event-card p { margin: 4px 0; font-size: 14px; opacity: 0.85; display: flex; align-items: center; gap: 8px; }
+
+        .sidebar-footer {
+            padding: 16px 24px;
+            border-top: 1px solid #E2E8F0;
+        }
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 10px 0;
+            transition: var(--transition);
+        }
+        .logout-btn:hover { color: var(--danger); }
+        .logout-btn i { font-size: 18px; }
+    </style>
 </head>
+<body class="dashboard-body">
 
-<body>
-
-<!-- ================= NAVBAR ================= -->
-
-<nav class="navbar">
-
-    <div class="logo-section">
-
-        <img src="../images/logo.png"
-             alt="Logo"
-             class="logo">
-
-        <div class="logo-text">
-
-            <span class="title">
-                Maison des Jeunes Alqods
-            </span>
-
-            <span class="subtitle">
-                Benguerir
-            </span>
-
-        </div>
-
-    </div>
-
-    <div class="nav-links">
-
-        <a href="../public/index.html">
-            Accueil
-        </a>
-
-        <a href="../public/news.html">
-            Actualités
-        </a>
-
-        <a href="../public/events.html">
-            Événements
-        </a>
-
-        <a href="../public/clubs.html">
-            Clubs
-        </a>
-
-        <a href="../public/pass_jeunes.html">
-            Passe Jeunes
-        </a>
-
-        <a href="../public/login.html"
-           class="join-btn">
-
-            Déconnexion
-
-        </a>
-
-    </div>
-
-</nav>
-
-<!-- ================= DASHBOARD ================= -->
-
-<div class="dashboard-container">
-
-    <!-- ===== MENU LATÉRAL ===== -->
-
+    <!-- SIDEBAR -->
     <aside class="sidebar">
-
-        <div class="member-card">
-
-            <img src="../images/members/default.png"
-                 alt="Photo"
-                 class="member-photo">
-
-            <h3>
-                Mohamed
-            </h3>
-
-            <p>
-                Membre
-            </p>
-
+        <div class="sidebar-header">
+            <div style="width:40px; height:40px; background:var(--member-color); border-radius:8px; display:flex; align-items:center; justify-content:center;">
+                <i class="fas fa-user" style="color:white; font-size:18px;"></i>
+            </div>
+            <h2>EspaceMembre</h2>
         </div>
-
-        <ul>
-
-            <li class="active">
-                <a href="dashboard.html">
-                    🏠 Tableau de bord
-                </a>
-            </li>
-
-            <li>
-                <a href="profile.html">
-                    👤 Mon Profil
-                </a>
-            </li>
-
-            <li>
-                <a href="my_clubs.html">
-                    👥 Mes Clubs
-                </a>
-            </li>
-
-            <li>
-                <a href="my_events.html">
-                    📅 Mes Événements
-                </a>
-            </li>
-
-            <li>
-                <a href="notifications.html">
-                    🔔 Notifications
-                </a>
-            </li>
-
-            <li>
-                <a href="announcements.html">
-                    📢 Annonces
-                </a>
-            </li>
-
-            <li>
-                <a href="settings.html">
-                    ⚙ Paramètres
-                </a>
-            </li>
-
-            <li>
-                <a href="../public/login.html">
-                    🚪 Déconnexion
-                </a>
-            </li>
-
-        </ul>
-
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item active">
+                <i class="fas fa-home"></i> Tableau de bord
+            </a>
+            <a href="profile.html" class="nav-item">
+                <i class="fas fa-user-circle"></i> Mon Profil
+            </a>
+            <a href="my_clubs.html" class="nav-item">
+                <i class="fas fa-users"></i> Mes Clubs
+            </a>
+            <a href="my-events.html" class="nav-item">
+                <i class="fas fa-calendar-alt"></i> Mes Événements
+            </a>
+            <a href="notifications.html" class="nav-item">
+                <i class="fas fa-bell"></i> Notifications
+                <span class="notification-badge" style="position:relative; top:0; right:0; margin-left:auto;">2</span>
+            </a>
+            <a href="announcements.html" class="nav-item">
+                <i class="fas fa-bullhorn"></i> Annonces
+            </a>
+            <a href="settings.html" class="nav-item">
+                <i class="fas fa-cog"></i> Paramètres
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="../public/login.html" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Déconnexion
+            </a>
+        </div>
     </aside>
 
-    <!-- ===== CONTENU ===== -->
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
 
-    <main class="dashboard-content">
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <button class="mobile-toggle"><i class="fas fa-bars"></i></button>
+            <h1 class="topbar-title">Tableau de bord</h1>
+            <div class="topbar-actions">
+                <button class="notification-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">2</span>
+                </button>
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Mohamed+El+Alaoui&background=7C3AED&color=fff" alt="Avatar">
+                    <div class="user-info">
+                        <p class="name">Mohamed El Alaoui</p>
+                        <p class="role">Membre</p>
+                    </div>
+                </div>
+            </div>
+        </header>
 
-        <div class="welcome-card">
+        <!-- CONTENT AREA -->
+        <main class="content-area">
 
-            <h1>
-                Bonjour Mohamed 👋
-            </h1>
-
-            <p>
-
-                Bienvenue dans votre espace membre.
-
-            </p>
-
-        </div>
-
-        <!-- ===== STATISTIQUES ===== -->
-
-        <div class="stats">
-
-            <div class="stat-card">
-
-                <h2>3</h2>
-
-                <p>Mes Clubs</p>
-
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>3</h3>
+                        <p>Mes Clubs</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background:#E0F2FE; color:#0284C7;">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>5</h3>
+                        <p>Mes Événements</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background:#FEF3C7; color:#D97706;">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>2</h3>
+                        <p>Notifications</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background:#FCE7F3; color:#BE185D;">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>1</h3>
+                        <p>Nouvelle Annonce</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="stat-card">
-
-                <h2>5</h2>
-
-                <p>Mes Événements</p>
-
+            <!-- Prochain Événement -->
+            <div class="next-event-card" style="margin-bottom: 24px;">
+                <div class="event-date-big">
+                    <span class="day">22</span>
+                    <span class="month">Juin</span>
+                </div>
+                <div>
+                    <h3>Formation Intelligence Artificielle</h3>
+                    <p><i class="far fa-clock"></i> 09:00 – 12:00</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Maison des Jeunes Al Qods</p>
+                    <p><i class="fas fa-users"></i> Club Informatique</p>
+                </div>
             </div>
 
-            <div class="stat-card">
-
-                <h2>2</h2>
-
-                <p>Notifications</p>
-
+            <!-- Activités Récentes -->
+            <div class="card">
+                <h2 style="margin-bottom: 4px;">Activités récentes</h2>
+                <p style="color:var(--text-muted); font-size:14px; margin-bottom:0;">Vos dernières actions sur la plateforme.</p>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon green"><i class="fas fa-check"></i></div>
+                        <div class="activity-text">
+                            <p>Vous avez rejoint le <strong>Club Informatique</strong>.</p>
+                            <span>Il y a 2 jours</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon blue"><i class="fas fa-calendar-plus"></i></div>
+                        <div class="activity-text">
+                            <p>Vous êtes inscrit à l'événement <strong>Hackathon 2026</strong>.</p>
+                            <span>Il y a 4 jours</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon amber"><i class="fas fa-bullhorn"></i></div>
+                        <div class="activity-text">
+                            <p>Une nouvelle annonce est disponible : <strong>Réunion Hackathon</strong>.</p>
+                            <span>Il y a 1 semaine</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="stat-card">
-
-                <h2>1</h2>
-
-                <p>Annonces</p>
-
-            </div>
-
-        </div>
-
-        <!-- ===== ACTIVITÉS ===== -->
-
-        <section class="dashboard-section">
-
-            <h2>
-
-                Activités récentes
-
-            </h2>
-
-            <div class="activity-card">
-
-                ✔ Vous avez rejoint le Club Informatique.
-
-            </div>
-
-            <div class="activity-card">
-
-                ✔ Une nouvelle annonce est disponible.
-
-            </div>
-
-            <div class="activity-card">
-
-                ✔ Vous êtes inscrit à l'événement "Hackathon 2026".
-
-            </div>
-
-        </section>
-
-        <!-- ===== PROCHAIN ÉVÉNEMENT ===== -->
-
-        <section class="dashboard-section">
-
-            <h2>
-
-                Prochain événement
-
-            </h2>
-
-            <div class="event-card">
-
-                <h3>
-
-                    Formation Intelligence Artificielle
-
-                </h3>
-
-                <p>
-
-                    📅 22 Juin 2026
-
-                </p>
-
-                <p>
-
-                    🕘 09:00
-
-                </p>
-
-                <p>
-
-                    📍 Maison des Jeunes Alqods
-
-                </p>
-
-            </div>
-
-        </section>
-
-    </main>
-
-</div>
-
-<script src="../js/membre.js"></script>
+        </main>
+    </div>
 
 </body>
-
 </html>

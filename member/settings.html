@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paramètres - Espace Membre</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root { --member-color: #7C3AED; }
+        .sidebar-header h2 { color: var(--member-color); }
+        .nav-item:hover { color: var(--member-color); }
+        .nav-item.active { background-color: #EDE9FE; color: var(--member-color); border-right-color: var(--member-color); }
+        .sidebar-footer { padding: 16px 24px; border-top: 1px solid #E2E8F0; }
+        .logout-btn { display:flex; align-items:center; gap:12px; color:var(--text-muted); text-decoration:none; font-size:14px; font-weight:500; padding:10px 0; transition:var(--transition); }
+        .logout-btn:hover { color: var(--danger); }
+
+        .settings-section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0 0 20px 0;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #E2E8F0;
+            color: var(--text-main);
+        }
+
+        .toggle-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #F1F5F9;
+        }
+        .toggle-row:last-child { border-bottom: none; }
+        .toggle-label { font-size: 14px; color: var(--text-main); }
+        .toggle-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+        /* Toggle switch */
+        .toggle-switch { position: relative; width: 44px; height: 24px; flex-shrink: 0; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider {
+            position: absolute; cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #CBD5E1;
+            transition: .3s; border-radius: 24px;
+        }
+        .toggle-slider:before {
+            position: absolute; content: "";
+            height: 18px; width: 18px;
+            left: 3px; bottom: 3px;
+            background-color: white;
+            transition: .3s; border-radius: 50%;
+        }
+        .toggle-switch input:checked + .toggle-slider { background-color: var(--member-color); }
+        .toggle-switch input:checked + .toggle-slider:before { transform: translateX(20px); }
+
+        .danger-zone {
+            border: 1px solid #FEE2E2;
+            border-radius: var(--border-radius);
+            padding: 24px;
+            background: #FFF5F5;
+        }
+        .danger-zone h3 { color: var(--danger); margin: 0 0 8px 0; }
+        .danger-zone p { color: var(--text-muted); font-size: 14px; margin: 0 0 16px 0; }
+    </style>
+</head>
+<body class="dashboard-body">
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div style="width:40px;height:40px;background:#7C3AED;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                <i class="fas fa-user" style="color:white;font-size:18px;"></i>
+            </div>
+            <h2>EspaceMembre</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Tableau de bord</a>
+            <a href="profile.html" class="nav-item"><i class="fas fa-user-circle"></i> Mon Profil</a>
+            <a href="my_clubs.html" class="nav-item"><i class="fas fa-users"></i> Mes Clubs</a>
+            <a href="my-events.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Mes Événements</a>
+            <a href="notifications.html" class="nav-item"><i class="fas fa-bell"></i> Notifications</a>
+            <a href="announcements.html" class="nav-item"><i class="fas fa-bullhorn"></i> Annonces</a>
+            <a href="settings.html" class="nav-item active"><i class="fas fa-cog"></i> Paramètres</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="../public/login.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+        </div>
+    </aside>
+
+    <div class="main-wrapper">
+        <header class="topbar">
+            <button class="mobile-toggle"><i class="fas fa-bars"></i></button>
+            <h1 class="topbar-title">Paramètres</h1>
+            <div class="topbar-actions">
+                <button class="btn" style="background:#7C3AED; color:white;">
+                    <i class="fas fa-save"></i> Enregistrer
+                </button>
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Mohamed+El+Alaoui&background=7C3AED&color=fff" alt="Avatar">
+                    <div class="user-info">
+                        <p class="name">Mohamed El Alaoui</p>
+                        <p class="role">Membre</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="content-area">
+
+            <div style="max-width: 720px;">
+
+                <!-- Sécurité -->
+                <div class="card">
+                    <h3 class="settings-section-title"><i class="fas fa-lock" style="margin-right:8px; color:var(--member-color);"></i>Sécurité du compte</h3>
+
+                    <div class="form-group">
+                        <label class="form-label">Mot de passe actuel</label>
+                        <input type="password" class="form-control" placeholder="••••••••">
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                        <div class="form-group">
+                            <label class="form-label">Nouveau mot de passe</label>
+                            <input type="password" class="form-control" placeholder="••••••••">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Confirmer le mot de passe</label>
+                            <input type="password" class="form-control" placeholder="••••••••">
+                        </div>
+                    </div>
+                    <button class="btn" style="background:#7C3AED; color:white;">
+                        <i class="fas fa-key"></i> Changer le mot de passe
+                    </button>
+                </div>
+
+                <!-- Notifications -->
+                <div class="card">
+                    <h3 class="settings-section-title"><i class="fas fa-bell" style="margin-right:8px; color:var(--member-color);"></i>Préférences de notifications</h3>
+
+                    <div class="toggle-row">
+                        <div>
+                            <div class="toggle-label">Nouvelles annonces</div>
+                            <div class="toggle-desc">Recevoir une notification lors d'une nouvelle annonce de club</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-row">
+                        <div>
+                            <div class="toggle-label">Rappels d'événements</div>
+                            <div class="toggle-desc">Rappel 24h avant un événement auquel vous êtes inscrit</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-row">
+                        <div>
+                            <div class="toggle-label">Statut de demande</div>
+                            <div class="toggle-desc">Notification lors de l'acceptation ou refus d'une demande de club</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-row">
+                        <div>
+                            <div class="toggle-label">Emails promotionnels</div>
+                            <div class="toggle-desc">Actualités et événements spéciaux par email</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Danger Zone -->
+                <div class="danger-zone">
+                    <h3><i class="fas fa-exclamation-triangle" style="margin-right:8px;"></i>Zone de danger</h3>
+                    <p>La suppression de votre compte est définitive et irréversible. Toutes vos données seront perdues.</p>
+                    <button class="btn btn-danger">
+                        <i class="fas fa-trash-alt"></i> Supprimer mon compte
+                    </button>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+</body>
+</html>

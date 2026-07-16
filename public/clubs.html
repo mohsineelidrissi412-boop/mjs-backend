@@ -1,294 +1,348 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clubs</title>
+    <title>Clubs - Maison des Jeunes Al Qods</title>
+    <meta name="description" content="Découvrez tous les clubs de la Maison des Jeunes Al Qods et rejoignez ceux qui vous correspondent.">
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: #F8FAFC; color: #334155; }
+
+        .public-navbar {
+            background: #fff; border-bottom: 1px solid #E2E8F0; padding: 0 40px;
+            height: 70px; display: flex; align-items: center; justify-content: space-between;
+            position: sticky; top: 0; z-index: 100; box-shadow: none; border: 1px solid #E2E8F0;
+        }
+        .public-navbar .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .brand-icon { width:42px; height:42px; background: #F1F5F9; border-radius: 4px; display:flex; align-items:center; justify-content:center; }
+        .brand-icon i { color:white; font-size:18px; }
+        .brand-text .name { font-size:16px; font-weight: 600; color:#1E3A8A; line-height:1.2; }
+        .brand-text .city { font-size:12px; color:#64748B; }
+        .public-nav-links { display:flex; align-items:center; gap:8px; }
+        .public-nav-links a { padding:8px 16px; border-radius:8px; text-decoration:none; font-size:14px; font-weight:500; color:#64748B; transition:all 0.2s; }
+        .public-nav-links a:hover { background:#F1F5F9; color:#334155; }
+        .public-nav-links a.active { background:#F1F5F9; color:#1E3A8A; }
+        .public-nav-links a.cta-btn { background:#1E3A8A; color:white; margin-left:8px; }
+        .public-nav-links a.cta-btn:hover { background:#1E40AF; }
+
+        .page-header {
+            background: #F1F5F9;
+            padding: 60px 40px; text-align: center; color: white;
+        }
+        .page-header h1 { font-size: 36px; font-weight: 600; margin-bottom: 12px; }
+        .page-header p { font-size: 16px; opacity: 0.85; max-width: 500px; margin: 0 auto; }
+
+        .clubs-container { max-width: 1100px; margin: 0 auto; padding: 48px 24px; }
+        .clubs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .club-card-pub {
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: none; border: 1px solid #E2E8F0;
+            transition: all 0.25s;
+        }
+        .club-card-pub:hover { box-shadow: none; border: 1px solid #E2E8F0;  }
+        .club-card-pub img { width: 100%; height: 180px; object-fit: cover; }
+        .club-card-body { padding: 24px; }
+        .club-card-body h3 { font-size: 19px; font-weight: 600; margin-bottom: 8px; color: #1E293B; }
+        .club-card-body p { font-size: 14px; color: #64748B; line-height: 1.6; margin-bottom: 20px; }
+        .club-card-footer { display:flex; justify-content:space-between; align-items:center; border-top:1px solid #F1F5F9; padding-top:14px; }
+        .club-members { font-size: 13px; color: #64748B; display: flex; align-items: center; gap: 6px; }
+        .join-btn-pub {
+            background: #1E3A8A; color: white; border: none;
+            padding: 10px 20px; border-radius: 8px; font-size: 14px;
+            font-weight: 600; cursor: pointer; transition: background 0.2s;
+            font-family: 'Inter', sans-serif; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 6px;
+        }
+        .join-btn-pub:hover { background: #1E40AF; }
+
+        /* Club Detail */
+        #club-detail-view { display: none; max-width: 800px; margin: 0 auto; padding: 48px 24px; }
+        .back-btn { display:inline-flex; align-items:center; gap:8px; background:#F1F5F9; border:none; padding:10px 18px; border-radius:8px; cursor:pointer; font-size:14px; font-weight:500; color:#334155; margin-bottom:28px; transition:all 0.2s; font-family:'Inter',sans-serif; }
+        .back-btn:hover { background:#E2E8F0; }
+
+        /* Club Form */
+        #club-form-view { display: none; max-width: 700px; margin: 0 auto; padding: 48px 24px; }
+        .form-card { background:white; border-radius: 4px; padding:40px; box-shadow: none; border: 1px solid #E2E8F0; }
+        .form-card h2 { font-size: 24px; font-weight: 600; margin-bottom: 8px; color: #1E293B; }
+        .form-card .subtitle { color:#64748B; font-size:14px; margin-bottom:28px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display:block; font-size:14px; font-weight:500; margin-bottom:8px; color:#334155; }
+        .form-group input, .form-group select {
+            width:100%; padding:12px 16px; border:1px solid #CBD5E1; border-radius: 4px;
+            font-family:'Inter',sans-serif; font-size:14px; transition:all 0.2s;
+        }
+        .form-group input:focus, .form-group select:focus { outline:none; border-color:#1E3A8A; box-shadow:0 0 0 3px rgba(79,70,229,0.1); }
+        .submit-btn-pub {
+            width:100%; padding:14px; background:#1E3A8A; color:white; border:none;
+            border-radius: 4px; font-size:15px; font-weight:600; cursor:pointer;
+            font-family:'Inter',sans-serif; transition:background 0.2s;
+        }
+        .submit-btn-pub:hover { background:#1E40AF; }
+            /* Responsive */
+        @media (max-width: 768px) {
+            .public-mobile-toggle { display: block !important; }
+            .public-nav-links {
+                position: fixed; top: 70px; left: 0; right: 0; background: white;
+                flex-direction: column; padding: 20px; box-shadow: none; border: 1px solid #E2E8F0;
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); transition: clip-path 0.3s ease-in-out;
+            }
+            .public-nav-links.active { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+            .public-nav-links a { width: 100%; text-align: center; }
+            .public-nav-links a.cta-btn { margin-left: 0; margin-top: 10px; }
+            
+            .hero { padding: 40px 20px !important; min-height: 400px !important; }
+            .hero h1 { font-size: 32px !important; }
+            .hero p { font-size: 16px !important; }
+            .stats-bar { flex-direction: column; padding: 20px !important; gap: 30px !important; }
+            .section { padding: 40px 20px !important; }
+            .cards-grid { grid-template-columns: 1fr !important; }
+            .clubs-mini { grid-template-columns: repeat(2, 1fr) !important; }
+            .form-grid { grid-template-columns: 1fr !important; }
+            .cta-section { padding: 40px 20px !important; }
+            .page-header { padding: 40px 20px !important; }
+            .page-header h1 { font-size: 28px !important; }
+            .auth-card { padding: 30px 20px !important; }
+            .site-footer { padding: 30px 20px !important; }
+        }
+    </style>
 </head>
-
 <body>
 
-    <!DOCTYPE html>
-<html lang="fr">
-
-<head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Clubs</title>
-
-    <link rel="stylesheet" href="../css/style.css">
-
-</head>
-
-<body>
-
-    <!-- NAVBAR -->
-
-    <nav class="navbar">
-
-        <div class="logo-section">
-
-            <img src="../images/logo.png"
-                 alt="Logo"
-                 class="logo">
-
-            <div class="logo-text">
-
-                <span class="title">
-                    Maison des Jeunes Alqods
-                </span>
-
-                <span class="subtitle">
-                    Benguerir
-                </span>
-
+    <nav class="public-navbar">
+        <a href="index.html" class="brand">
+            <div class="brand-icon"><i class="fas fa-star"></i></div>
+            <div class="brand-text">
+                <div class="name">Maison des Jeunes</div>
+                <div class="city">Al Qods · Benguerir</div>
             </div>
-
+        </a>
+        <div class="public-nav-links">
+            <a href="index.html">Accueil</a>
+            <a href="news.html">Actualités</a>
+            <a href="events.html">Événements</a>
+            <a href="clubs.html" class="active">Clubs</a>
+            <a href="pass_jeunes.html">Pass Jeunes</a>
+            <a href="register.html" class="cta-btn">Nous rejoindre</a>
         </div>
-
-        <div class="nav-links">
-
-            <a href="index.html">
-                Accueil
-            </a>
-
-            <a href="news.html">
-                Actualités
-            </a>
-
-            <a href="events.html">
-                Événements
-            </a>
-
-            <a href="clubs.html"
-               class="active">
-                Clubs
-            </a>
-
-            <a href="pass-jeunes.html">
-                Passe Jeune
-            </a>
-
-            <a href="register.html" class="join-btn">
-                Nous rejoindre
-            </a>
-
-        </div>
-
+            <button class="public-mobile-toggle" style="display:none; background:none; border:none; font-size:24px; color:#334155; cursor:pointer;"><i class="fas fa-bars"></i></button>
     </nav>
 
-    <!-- LISTE CLUBS -->
+    <!-- Clubs List -->
+    <div id="clubs-list-view">
+        <div class="page-header">
+            <h1><i class="fas fa-users" style="margin-right:12px;"></i>Nos Clubs</h1>
+            <p>Rejoignez l'un de nos clubs et développez vos passions en compagnie d'autres jeunes.</p>
+        </div>
 
-    <main class="clubs-page">
+        <div class="clubs-container">
+            <div class="clubs-grid">
 
-        <section id="clubs-list">
+                <div class="club-card-pub">
+                    <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80" alt="Club Informatique">
+                    <div class="club-card-body">
+                        <h3>Club Informatique</h3>
+                        <p>Développement web, programmation, intelligence artificielle et nouvelles technologies.</p>
+                        <div class="club-card-footer">
+                            <span class="club-members"><i class="fas fa-users"></i> 42 membres</span>
+                            <button class="join-btn-pub" onclick="showClubDetail('informatique')">
+                                <i class="fas fa-info-circle"></i> Découvrir
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-            <h1>Nos Clubs</h1>
+                <div class="club-card-pub">
+                    <img src="https://images.unsplash.com/photo-1581092921461-7031e3b9a91e?auto=format&fit=crop&w=800&q=80" alt="Club Robotique">
+                    <div class="club-card-body">
+                        <h3>Club Robotique</h3>
+                        <p>Robotique, électronique et projets innovants pour les passionnés de technologie.</p>
+                        <div class="club-card-footer">
+                            <span class="club-members"><i class="fas fa-users"></i> 28 membres</span>
+                            <button class="join-btn-pub" onclick="showClubDetail('robotique')">
+                                <i class="fas fa-info-circle"></i> Découvrir
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="club-card">
+                <div class="club-card-pub">
+                    <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=800&q=80" alt="Club Arts">
+                    <div class="club-card-body">
+                        <h3>Club Arts & Culture</h3>
+                        <p>Peinture, dessin, artisanat et expression artistique pour les âmes créatives.</p>
+                        <div class="club-card-footer">
+                            <span class="club-members"><i class="fas fa-users"></i> 18 membres</span>
+                            <button class="join-btn-pub">
+                                <i class="fas fa-info-circle"></i> Découvrir
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-                <img src="../images/clubs/club1.jpg"
-                     alt="Club">
+                <div class="club-card-pub">
+                    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80" alt="Club Musique">
+                    <div class="club-card-body">
+                        <h3>Club Musique</h3>
+                        <p>Chant, guitare, piano et animation musicale pour les jeunes talents.</p>
+                        <div class="club-card-footer">
+                            <span class="club-members"><i class="fas fa-users"></i> 22 membres</span>
+                            <button class="join-btn-pub">
+                                <i class="fas fa-info-circle"></i> Découvrir
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-                <div class="club-content">
+                <div class="club-card-pub">
+                    <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=800&q=80" alt="Club Sport">
+                    <div class="club-card-body">
+                        <h3>Club Sport</h3>
+                        <p>Football, basketball, volleyball et activités sportives pour rester en forme.</p>
+                        <div class="club-card-footer">
+                            <span class="club-members"><i class="fas fa-users"></i> 35 membres</span>
+                            <button class="join-btn-pub">
+                                <i class="fas fa-info-circle"></i> Découvrir
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-                    <h3>
-                        Club Informatique
-                    </h3>
+                <div class="club-card-pub">
+                    <img src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?auto=format&fit=crop&w=800&q=80" alt="Club Théâtre">
+                    <div class="club-card-body">
+                        <h3>Club Théâtre</h3>
+                        <p>Théâtre, expression orale et spectacles pour développer votre confiance en soi.</p>
+                        <div class="club-card-footer">
+                            <span class="club-members"><i class="fas fa-users"></i> 15 membres</span>
+                            <button class="join-btn-pub">
+                                <i class="fas fa-info-circle"></i> Découvrir
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-                    <p>
-                        Découvrez la programmation,
-                        le développement web et les
-                        nouvelles technologies.
-                    </p>
+            </div>
+        </div>
+    </div>
 
-                    <button class="read-club">
-                        Découvrir le club →
+    <!-- Club Detail -->
+    <div id="club-detail-view">
+        <div class="clubs-container" style="padding-top:40px;">
+            <button class="back-btn" onclick="hideClubDetail()">
+                <i class="fas fa-arrow-left"></i> Retour aux clubs
+            </button>
+            <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=80"
+                 alt="Club" style="width:100%; height:320px; object-fit:cover; border-radius: 4px; margin-bottom:32px;">
+            <h1 style="font-size:32px; font-weight: 600; margin-bottom:12px; color:#1E293B;" id="detail-club-name">Club Informatique</h1>
+            <div style="display:flex; flex-wrap:wrap; gap:16px; margin-bottom:24px; font-size:14px; color:#64748B;">
+                <span><i class="fas fa-users" style="color:#1E3A8A;"></i> 42 membres actifs</span>
+                <span><i class="fas fa-user-tie" style="color:#1E3A8A;"></i> Encadrant : Prof. Hassan</span>
+            </div>
+            <div style="font-size:16px; line-height:1.8; color:#475569; margin-bottom:32px;">
+                <p>Le Club Informatique permet aux jeunes d'apprendre la programmation, le développement web, le design graphique et les nouvelles technologies numériques. Les membres travaillent sur des projets concrets et participent à des compétitions nationales.</p>
+            </div>
+            <button class="join-btn-pub" onclick="showJoinForm()" style="font-size:15px; padding:14px 28px;">
+                <i class="fas fa-user-plus"></i> Rejoindre ce club
+            </button>
+        </div>
+    </div>
+
+    <!-- Club Join Form -->
+    <div id="club-form-view">
+        <div class="clubs-container" style="padding-top:40px;">
+            <button class="back-btn" onclick="document.getElementById('club-form-view').style.display='none'; document.getElementById('club-detail-view').style.display='block';">
+                <i class="fas fa-arrow-left"></i> Retour au club
+            </button>
+            <div class="form-card">
+                <h2>Rejoindre le Club Informatique</h2>
+                <p class="subtitle">Remplissez le formulaire ci-dessous. Votre demande sera examinée par l'encadrant du club.</p>
+
+                <form id="join-form" onsubmit="submitForm(event)">
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                        <div class="form-group">
+                            <label>Nom</label>
+                            <input type="text" placeholder="Votre nom" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Prénom</label>
+                            <input type="text" placeholder="Votre prénom" required>
+                        </div>
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                        <div class="form-group">
+                            <label>Âge</label>
+                            <input type="number" min="8" max="35" placeholder="18" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Sexe</label>
+                            <select required>
+                                <option value="">Sélectionner</option>
+                                <option>Masculin</option>
+                                <option>Féminin</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Téléphone</label>
+                        <input type="tel" placeholder="06XXXXXXXX" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="votre@email.com" required>
+                    </div>
+                    <button type="submit" class="submit-btn-pub">
+                        <i class="fas fa-paper-plane" style="margin-right:8px;"></i> Envoyer ma demande
                     </button>
-
-                </div>
-
+                </form>
             </div>
-
-        </section>
-
-        <!-- DETAIL CLUB -->
-
-        <section id="club-detail">
-
-            <button id="back-club-btn">
-                ← Retour aux clubs
-            </button>
-
-            <h1>
-                Club Informatique
-            </h1>
-
-            <div class="club-slider">
-
-                <div class="slides">
-
-                    <img src="../images/clubs/1.jpg"
-                         class="club-slide active">
-
-                    <img src="../images/clubs/2.jpg"
-                         class="club-slide">
-
-                    <img src="../images/clubs/3.jpg"
-                         class="club-slide">
-
-                </div>
-
-                <button class="club-prev">
-                    &#10094;
-                </button>
-
-                <button class="club-next">
-                    &#10095;
-                </button>
-
-                <div class="club-dots"></div>
-
-            </div>
-
-            <div class="club-description">
-
-                <p>
-
-                    Le Club Informatique permet
-                    aux jeunes d'apprendre la
-                    programmation, le développement web,
-                    le design graphique et les nouvelles
-                    technologies numériques.
-
-                </p>
-
-            </div>
-
-            <button id="join-club-btn"
-                    class="join-club-btn">
-
-                Rejoindre le club
-
-            </button>
-
-        </section>
-
-        <!-- FORMULAIRE -->
-
-        <section id="club-form">
-
-            <button id="back-form-btn">
-                ← Retour au club
-            </button>
-
-            <h2>
-                Inscription au club
-            </h2>
-
-            <form id="club-registration-form">
-
-                <div class="form-group">
-
-                    <label>Nom</label>
-
-                    <input type="text"
-                           required>
-
-                </div>
-
-                <div class="form-group">
-
-                    <label>Prénom</label>
-
-                    <input type="text"
-                           required>
-
-                </div>
-
-                <div class="form-group">
-
-                    <label>Âge</label>
-
-                    <input type="number"
-                           required>
-
-                </div>
-
-                <div class="form-group">
-
-                    <label>Sexe</label>
-
-                    <select required>
-
-                        <option value="">
-                            Sélectionner
-                        </option>
-
-                        <option>
-                            Masculin
-                        </option>
-
-                        <option>
-                            Féminin
-                        </option>
-
-                    </select>
-
-                </div>
-
-                <div class="form-group">
-
-                    <label>Téléphone</label>
-
-                    <input type="tel"
-                           required>
-
-                </div>
-
-                <div class="form-group">
-
-                    <label>Email</label>
-
-                    <input type="email"
-                           required>
-
-                </div>
-
-                <div class="form-group">
-
-                    <label>Photo</label>
-
-                    <input type="file"
-                           accept="image/*"
-                           required>
-
-                </div>
-
-                <button type="submit"
-                        class="submit-btn">
-
-                    Envoyer la demande
-
-                </button>
-
-            </form>
-
-        </section>
-
-    </main>
-
-    <script src="../js/main.js"></script>
-
+        </div>
+    </div>
+
+    <script>
+        function showClubDetail(club) {
+            document.getElementById('clubs-list-view').style.display = 'none';
+            document.getElementById('club-detail-view').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+        function hideClubDetail() {
+            document.getElementById('clubs-list-view').style.display = 'block';
+            document.getElementById('club-detail-view').style.display = 'none';
+        }
+        function showJoinForm() {
+            document.getElementById('club-detail-view').style.display = 'none';
+            document.getElementById('club-form-view').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+        function submitForm(e) {
+            e.preventDefault();
+            alert('Votre demande a été envoyée avec succès ! L\'encadrant vous contactera prochainement.');
+            document.getElementById('club-form-view').style.display = 'none';
+            document.getElementById('clubs-list-view').style.display = 'block';
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const publicToggle = document.querySelector('.public-mobile-toggle');
+            const publicNav = document.querySelector('.public-nav-links');
+            if(publicToggle && publicNav) {
+                publicToggle.addEventListener('click', () => {
+                    publicNav.classList.toggle('active');
+                });
+            }
+        });
+    </script>
 </body>
-</html>
-
-    <script src="../js/main.js"></script>
-</body>
-
 </html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annonces - Espace Membre</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root { --member-color: #7C3AED; }
+        .sidebar-header h2 { color: var(--member-color); }
+        .nav-item:hover { color: var(--member-color); }
+        .nav-item.active { background-color: #EDE9FE; color: var(--member-color); border-right-color: var(--member-color); }
+        .sidebar-footer { padding: 16px 24px; border-top: 1px solid #E2E8F0; }
+        .logout-btn { display:flex; align-items:center; gap:12px; color:var(--text-muted); text-decoration:none; font-size:14px; font-weight:500; padding:10px 0; transition:var(--transition); }
+        .logout-btn:hover { color: var(--danger); }
+
+        .announcement-card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            padding: 24px;
+            margin-bottom: 16px;
+            border-left: 4px solid var(--member-color);
+            max-width: 800px;
+        }
+        .announcement-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        .announcement-title { margin: 0 0 6px 0; font-size: 18px; color: var(--text-main); }
+        .announcement-meta { font-size: 13px; color: var(--text-muted); display: flex; gap: 16px; flex-wrap: wrap; }
+        .announcement-meta span { display: flex; align-items: center; gap: 5px; }
+        .announcement-body { font-size: 15px; line-height: 1.6; color: var(--text-main); margin: 0; }
+    </style>
+</head>
+<body class="dashboard-body">
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div style="width:40px;height:40px;background:#7C3AED;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                <i class="fas fa-user" style="color:white;font-size:18px;"></i>
+            </div>
+            <h2>EspaceMembre</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Tableau de bord</a>
+            <a href="profile.html" class="nav-item"><i class="fas fa-user-circle"></i> Mon Profil</a>
+            <a href="my_clubs.html" class="nav-item"><i class="fas fa-users"></i> Mes Clubs</a>
+            <a href="my-events.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Mes Événements</a>
+            <a href="notifications.html" class="nav-item"><i class="fas fa-bell"></i> Notifications</a>
+            <a href="announcements.html" class="nav-item active"><i class="fas fa-bullhorn"></i> Annonces</a>
+            <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Paramètres</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="../public/login.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+        </div>
+    </aside>
+
+    <div class="main-wrapper">
+        <header class="topbar">
+            <button class="mobile-toggle"><i class="fas fa-bars"></i></button>
+            <h1 class="topbar-title">Annonces</h1>
+            <div class="topbar-actions">
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Mohamed+El+Alaoui&background=7C3AED&color=fff" alt="Avatar">
+                    <div class="user-info">
+                        <p class="name">Mohamed El Alaoui</p>
+                        <p class="role">Membre</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="content-area">
+
+            <div class="announcement-card">
+                <div class="announcement-header">
+                    <div>
+                        <h3 class="announcement-title">Réunion de préparation pour le Hackathon</h3>
+                        <div class="announcement-meta">
+                            <span><i class="fas fa-users"></i> Club Informatique</span>
+                            <span><i class="far fa-clock"></i> Il y a 2 jours</span>
+                            <span><i class="fas fa-user-tie"></i> Prof. Encadrant</span>
+                        </div>
+                    </div>
+                    <span class="badge" style="background:#EDE9FE; color:#5B21B6; flex-shrink:0;">Nouveau</span>
+                </div>
+                <p class="announcement-body">
+                    Bonjour à tous, n'oubliez pas notre réunion ce vendredi à 16h pour discuter de l'organisation du hackathon. 
+                    Présence obligatoire pour les membres de l'équipe d'organisation. Merci de confirmer votre présence.
+                </p>
+            </div>
+
+            <div class="announcement-card" style="border-left-color: #0D9488;">
+                <div class="announcement-header">
+                    <div>
+                        <h3 class="announcement-title">Nouveau matériel reçu – Kits Arduino</h3>
+                        <div class="announcement-meta">
+                            <span><i class="fas fa-users"></i> Club Robotique</span>
+                            <span><i class="far fa-clock"></i> Il y a 1 semaine</span>
+                            <span><i class="fas fa-user-tie"></i> Prof. Encadrant</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="announcement-body">
+                    Nous venons de recevoir les nouveaux kits Arduino et Raspberry Pi. Ils sont disponibles dans le local du club 
+                    pour vos projets. Veuillez vous inscrire sur la feuille de réservation disponible à l'accueil.
+                </p>
+            </div>
+
+            <div class="announcement-card" style="border-left-color: #F59E0B;">
+                <div class="announcement-header">
+                    <div>
+                        <h3 class="announcement-title">Calendrier des répétitions – Juin 2026</h3>
+                        <div class="announcement-meta">
+                            <span><i class="fas fa-users"></i> Club Musique</span>
+                            <span><i class="far fa-clock"></i> Il y a 2 semaines</span>
+                            <span><i class="fas fa-user-tie"></i> Coordinateur</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="announcement-body">
+                    Le planning des répétitions pour le mois de juin est maintenant disponible. 
+                    Les séances se tiennent chaque samedi de 14h à 17h dans la salle de musique.
+                </p>
+            </div>
+
+        </main>
+    </div>
+
+</body>
+</html>

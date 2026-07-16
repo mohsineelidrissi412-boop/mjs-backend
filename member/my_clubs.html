@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Clubs - Espace Membre</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root { --member-color: #7C3AED; --member-hover: #6D28D9; }
+        .sidebar-header h2 { color: var(--member-color); }
+        .nav-item:hover { color: var(--member-color); }
+        .nav-item.active { background-color: #EDE9FE; color: var(--member-color); border-right-color: var(--member-color); }
+        .sidebar-footer { padding: 16px 24px; border-top: 1px solid #E2E8F0; }
+        .logout-btn { display:flex; align-items:center; gap:12px; color:var(--text-muted); text-decoration:none; font-size:14px; font-weight:500; padding:10px 0; transition:var(--transition); }
+        .logout-btn:hover { color: var(--danger); }
+
+        .clubs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .club-card-member {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .club-card-member:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+        .club-card-member img { width: 100%; height: 150px; object-fit: cover; }
+        .club-card-body { padding: 20px; }
+        .club-card-body h3 { margin: 0 0 8px 0; font-size: 17px; }
+        .club-card-body p { color: var(--text-muted); font-size: 13px; margin: 0 0 16px 0; line-height: 1.5; }
+        .club-card-footer { display:flex; justify-content:space-between; align-items:center; border-top:1px solid #E2E8F0; padding-top:14px; }
+
+        .discover-section { margin-top: 32px; }
+
+        .modal-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:200; display:none; align-items:center; justify-content:center; }
+        .modal-content { background:var(--bg-card); border-radius:var(--border-radius); width:90%; max-width:500px; padding:24px; }
+    </style>
+</head>
+<body class="dashboard-body">
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div style="width:40px;height:40px;background:#7C3AED;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                <i class="fas fa-user" style="color:white;font-size:18px;"></i>
+            </div>
+            <h2>EspaceMembre</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Tableau de bord</a>
+            <a href="profile.html" class="nav-item"><i class="fas fa-user-circle"></i> Mon Profil</a>
+            <a href="my_clubs.html" class="nav-item active"><i class="fas fa-users"></i> Mes Clubs</a>
+            <a href="my-events.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Mes Événements</a>
+            <a href="notifications.html" class="nav-item"><i class="fas fa-bell"></i> Notifications</a>
+            <a href="announcements.html" class="nav-item"><i class="fas fa-bullhorn"></i> Annonces</a>
+            <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Paramètres</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="../public/login.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+        </div>
+    </aside>
+
+    <div class="main-wrapper">
+        <header class="topbar">
+            <button class="mobile-toggle"><i class="fas fa-bars"></i></button>
+            <h1 class="topbar-title">Mes Clubs</h1>
+            <div class="topbar-actions">
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Mohamed+El+Alaoui&background=7C3AED&color=fff" alt="Avatar">
+                    <div class="user-info">
+                        <p class="name">Mohamed El Alaoui</p>
+                        <p class="role">Membre</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="content-area">
+
+            <!-- Clubs rejoints -->
+            <h2 style="margin: 0 0 20px 0; font-size: 18px; color: var(--text-main);">
+                <i class="fas fa-check-circle" style="color:var(--member-color); margin-right:8px;"></i>
+                Clubs rejoints (3)
+            </h2>
+            <div class="clubs-grid">
+
+                <div class="club-card-member">
+                    <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80" alt="Club Informatique">
+                    <div class="club-card-body">
+                        <h3>Club Informatique</h3>
+                        <p>Développement Web, Programmation et Intelligence Artificielle.</p>
+                        <div class="club-card-footer">
+                            <span class="badge badge-primary">Membre actif</span>
+                            <button class="btn btn-danger" style="padding:6px 12px; font-size:13px;"
+                                    onclick="document.getElementById('quitModal').style.display='flex'">
+                                <i class="fas fa-sign-out-alt"></i> Quitter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="club-card-member">
+                    <img src="https://images.unsplash.com/photo-1581092921461-7031e3b9a91e?auto=format&fit=crop&w=800&q=80" alt="Club Robotique">
+                    <div class="club-card-body">
+                        <h3>Club Robotique</h3>
+                        <p>Robotique, électronique et projets innovants.</p>
+                        <div class="club-card-footer">
+                            <span class="badge badge-primary">Membre actif</span>
+                            <button class="btn btn-danger" style="padding:6px 12px; font-size:13px;">
+                                <i class="fas fa-sign-out-alt"></i> Quitter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="club-card-member">
+                    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80" alt="Club Musique">
+                    <div class="club-card-body">
+                        <h3>Club Musique</h3>
+                        <p>Chant, guitare, piano et animation musicale.</p>
+                        <div class="club-card-footer">
+                            <span class="badge badge-warning">En attente</span>
+                            <button class="btn btn-secondary" style="padding:6px 12px; font-size:13px;" disabled>
+                                <i class="fas fa-clock"></i> En attente
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Découvrir d'autres clubs -->
+            <div class="discover-section">
+                <h2 style="margin: 0 0 20px 0; font-size: 18px; color: var(--text-main);">
+                    <i class="fas fa-search" style="color:var(--member-color); margin-right:8px;"></i>
+                    Découvrir d'autres clubs
+                </h2>
+                <div class="clubs-grid">
+
+                    <div class="club-card-member">
+                        <img src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?auto=format&fit=crop&w=800&q=80" alt="Club Théâtre">
+                        <div class="club-card-body">
+                            <h3>Club Théâtre</h3>
+                            <p>Théâtre, expression artistique et spectacles.</p>
+                            <div class="club-card-footer">
+                                <span class="badge" style="background:#F3F4F6; color:#374151;">18 membres</span>
+                                <button class="btn" style="background:#7C3AED; color:white; padding:6px 12px; font-size:13px;">
+                                    <i class="fas fa-plus"></i> Rejoindre
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="club-card-member">
+                        <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=800&q=80" alt="Club Sport">
+                        <div class="club-card-body">
+                            <h3>Club Sport</h3>
+                            <p>Football, Basketball, Volleyball et plus encore.</p>
+                            <div class="club-card-footer">
+                                <span class="badge" style="background:#F3F4F6; color:#374151;">35 membres</span>
+                                <button class="btn" style="background:#7C3AED; color:white; padding:6px 12px; font-size:13px;">
+                                    <i class="fas fa-plus"></i> Rejoindre
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Modal Quitter -->
+    <div class="modal-overlay" id="quitModal">
+        <div class="modal-content">
+            <div style="text-align:center; padding: 12px 0;">
+                <i class="fas fa-exclamation-triangle" style="font-size:48px; color:var(--warning); margin-bottom:16px;"></i>
+                <h3 style="margin:0 0 8px 0;">Quitter le club ?</h3>
+                <p style="color:var(--text-muted); margin-bottom:24px;">Êtes-vous sûr de vouloir quitter le <strong>Club Informatique</strong> ? Vous devrez soumettre une nouvelle demande pour y rejoindre à nouveau.</p>
+                <div style="display:flex; gap:12px; justify-content:center;">
+                    <button class="btn btn-secondary" onclick="document.getElementById('quitModal').style.display='none'">Annuler</button>
+                    <button class="btn btn-danger">Confirmer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

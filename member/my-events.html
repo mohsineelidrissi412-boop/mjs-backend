@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Événements - Espace Membre</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root { --member-color: #7C3AED; }
+        .sidebar-header h2 { color: var(--member-color); }
+        .nav-item:hover { color: var(--member-color); }
+        .nav-item.active { background-color: #EDE9FE; color: var(--member-color); border-right-color: var(--member-color); }
+        .sidebar-footer { padding: 16px 24px; border-top: 1px solid #E2E8F0; }
+        .logout-btn { display:flex; align-items:center; gap:12px; color:var(--text-muted); text-decoration:none; font-size:14px; font-weight:500; padding:10px 0; transition:var(--transition); }
+        .logout-btn:hover { color: var(--danger); }
+
+        .event-list { display: flex; flex-direction: column; gap: 16px; }
+        .event-item {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+            border-left: 4px solid var(--member-color);
+        }
+        .event-item:hover { box-shadow: var(--shadow-md); }
+        .event-info { display: flex; align-items: center; gap: 20px; }
+        .event-date-box {
+            background: #EDE9FE; color: var(--member-color);
+            border-radius: 12px; width: 70px; height: 70px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .event-date-box .day { font-size: 24px; font-weight: bold; line-height: 1; }
+        .event-date-box .month { font-size: 12px; text-transform: uppercase; font-weight: 600; }
+        .event-details h3 { margin: 0 0 8px 0; font-size: 17px; }
+        .event-details p { margin: 0; color: var(--text-muted); font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        .event-actions { display: flex; gap: 12px; flex-shrink: 0; }
+
+        .tabs { display: flex; gap: 8px; margin-bottom: 24px; }
+        .tab-btn {
+            padding: 8px 20px;
+            border: 1px solid #E2E8F0;
+            border-radius: 20px;
+            background: white;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-muted);
+        }
+        .tab-btn.active { background: var(--member-color); color: white; border-color: var(--member-color); }
+    </style>
+</head>
+<body class="dashboard-body">
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div style="width:40px;height:40px;background:#7C3AED;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                <i class="fas fa-user" style="color:white;font-size:18px;"></i>
+            </div>
+            <h2>EspaceMembre</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Tableau de bord</a>
+            <a href="profile.html" class="nav-item"><i class="fas fa-user-circle"></i> Mon Profil</a>
+            <a href="my_clubs.html" class="nav-item"><i class="fas fa-users"></i> Mes Clubs</a>
+            <a href="my-events.html" class="nav-item active"><i class="fas fa-calendar-alt"></i> Mes Événements</a>
+            <a href="notifications.html" class="nav-item"><i class="fas fa-bell"></i> Notifications</a>
+            <a href="announcements.html" class="nav-item"><i class="fas fa-bullhorn"></i> Annonces</a>
+            <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Paramètres</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="../public/login.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+        </div>
+    </aside>
+
+    <div class="main-wrapper">
+        <header class="topbar">
+            <button class="mobile-toggle"><i class="fas fa-bars"></i></button>
+            <h1 class="topbar-title">Mes Événements</h1>
+            <div class="topbar-actions">
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Mohamed+El+Alaoui&background=7C3AED&color=fff" alt="Avatar">
+                    <div class="user-info">
+                        <p class="name">Mohamed El Alaoui</p>
+                        <p class="role">Membre</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="content-area">
+
+            <div class="tabs">
+                <button class="tab-btn active">Tous (5)</button>
+                <button class="tab-btn">À venir</button>
+                <button class="tab-btn">Passés</button>
+            </div>
+
+            <div class="event-list">
+
+                <div class="event-item">
+                    <div class="event-info">
+                        <div class="event-date-box">
+                            <span class="day">22</span>
+                            <span class="month">Juin</span>
+                        </div>
+                        <div class="event-details">
+                            <h3>Formation Intelligence Artificielle</h3>
+                            <p><i class="far fa-clock"></i> 09:00 – 12:00 &nbsp;|&nbsp; <i class="fas fa-users"></i> Club Informatique</p>
+                        </div>
+                    </div>
+                    <div class="event-actions">
+                        <span class="badge badge-success">Inscrit</span>
+                        <button class="btn btn-danger" style="padding:6px 12px; font-size:13px;">
+                            <i class="fas fa-times"></i> Se désinscrire
+                        </button>
+                    </div>
+                </div>
+
+                <div class="event-item">
+                    <div class="event-info">
+                        <div class="event-date-box">
+                            <span class="day">15</span>
+                            <span class="month">Juil</span>
+                        </div>
+                        <div class="event-details">
+                            <h3>Hackathon 2026</h3>
+                            <p><i class="far fa-clock"></i> 09:00 – 21:00 &nbsp;|&nbsp; <i class="fas fa-users"></i> Club Informatique</p>
+                        </div>
+                    </div>
+                    <div class="event-actions">
+                        <span class="badge badge-success">Inscrit</span>
+                        <button class="btn btn-danger" style="padding:6px 12px; font-size:13px;">
+                            <i class="fas fa-times"></i> Se désinscrire
+                        </button>
+                    </div>
+                </div>
+
+                <div class="event-item" style="opacity:0.7;">
+                    <div class="event-info">
+                        <div class="event-date-box" style="background:#F1F5F9; color:var(--text-muted);">
+                            <span class="day">05</span>
+                            <span class="month">Mai</span>
+                        </div>
+                        <div class="event-details">
+                            <h3>Tournoi de Robotique</h3>
+                            <p><i class="far fa-clock"></i> 10:00 – 18:00 &nbsp;|&nbsp; <i class="fas fa-users"></i> Club Robotique</p>
+                        </div>
+                    </div>
+                    <div class="event-actions">
+                        <span class="badge" style="background:#F1F5F9; color:var(--text-muted);">Terminé</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+</body>
+</html>
