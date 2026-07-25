@@ -58,7 +58,7 @@
         </a>
 
         <a href="pass_jeunes.html">
-            Passe Jeune
+            Pass Jeunes
         </a>
 
         <a href="register.html"
@@ -219,162 +219,143 @@ required>
 <img
 id="preview"
 class="photo-preview">
-<!-- ================= CHOIX DES CLUBS ================= -->
 
-<div class="form-group">
 
-    <label class="section-label">
 
-        Sélectionnez le ou les clubs auxquels vous souhaitez adhérer
 
-    </label>
 
-    <div class="clubs-grid">
 
-        <label class="club-card">
+<!-- ================= TYPE DE COMPTE ================= -->
 
-            <input
-                type="checkbox"
-                name="clubs[]"
-                value="informatique">
+<div class="form-section">
 
-            <img
-                src="../images/clubs/informatique.jpg"
-                alt="Club Informatique"
-                class="club-image">
+    <h2>Type de compte</h2>
 
-            <h3>Club Informatique</h3>
+    <select id="accountType">
 
-            <p>
+        <option value="member">Membre</option>
 
-                Développement Web, Programmation,
-                Intelligence Artificielle...
+        <option value="trainer">Encadrant</option>
 
-            </p>
+        <option value="admin">Administrateur</option>
 
-        </label>
+    </select>
 
-        <label class="club-card">
+</div>
 
-            <input
-                type="checkbox"
-                name="clubs[]"
-                value="robotique">
+<!-- ================= MOT DE PASSE ================= -->
 
-            <img
-                src="../images/clubs/robotique.jpg"
-                alt="Club Robotique"
-                class="club-image">
+<div class="form-section">
 
-            <h3>Club Robotique</h3>
+    <div class="form-group">
 
-            <p>
+        <label>Mot de passe</label>
 
-                Robotique, électronique
-                et projets innovants.
+        <input
+            type="password"
+            id="password"
+            required>
 
-            </p>
+    </div>
 
-        </label>
+    <div class="form-group">
 
-        <label class="club-card">
+        <label>Confirmer le mot de passe</label>
 
-            <input
-                type="checkbox"
-                name="clubs[]"
-                value="musique">
+        <input
+            type="password"
+            id="confirmPassword"
+            required>
 
-            <img
-                src="../images/clubs/musique.jpg"
-                alt="Club Musique"
-                class="club-image">
+    </div>
 
-            <h3>Club Musique</h3>
+</div>
 
-            <p>
+<!-- ================= CV ================= -->
 
-                Chant, guitare,
-                piano et animation.
+<div id="cvSection" style="display:none;">
 
-            </p>
+    <h2>Curriculum Vitae</h2>
 
-        </label>
+    <div class="form-group">
 
-        <label class="club-card">
+        <label>CV (PDF)</label>
 
-            <input
-                type="checkbox"
-                name="clubs[]"
-                value="theatre">
+        <input
+            type="file"
+            id="cv"
+            accept=".pdf">
 
-            <img
-                src="../images/clubs/theatre.jpg"
-                alt="Club Théâtre"
-                class="club-image">
+    </div>
 
-            <h3>Club Théâtre</h3>
+</div>
 
-            <p>
+<!-- ================= CLUBS ================= -->
 
-                Théâtre,
-                expression artistique
-                et spectacles.
+<div id="clubsSection" style="display:none;">
 
-            </p>
+    <h2 id="clubsTitle">
+
+        Choisissez vos clubs
+
+    </h2>
+
+    <div class="clubs-list">
+
+        <label>
+
+            <input type="checkbox"
+                   name="clubs"
+                   value="informatique">
+
+            Club Informatique
 
         </label>
 
-        <label class="club-card">
+        <label>
 
-            <input
-                type="checkbox"
-                name="clubs[]"
-                value="sport">
+            <input type="checkbox"
+                   name="clubs"
+                   value="robotique">
 
-            <img
-                src="../images/clubs/sport.jpg"
-                alt="Club Sport"
-                class="club-image">
-
-            <h3>Club Sport</h3>
-
-            <p>
-
-                Football,
-                Basketball,
-                Volleyball...
-
-            </p>
+            Club Robotique
 
         </label>
 
-        <label class="club-card">
+        <label>
 
-            <input
-                type="checkbox"
-                name="clubs[]"
-                value="langues">
+            <input type="checkbox"
+                   name="clubs"
+                   value="theatre">
 
-            <img
-                src="../images/clubs/langues.jpg"
-                alt="Club Langues"
-                class="club-image">
+            Club Théâtre
 
-            <h3>Club Langues</h3>
+        </label>
 
-            <p>
+        <label>
 
-                Français,
-                Anglais,
-                Espagnol...
+            <input type="checkbox"
+                   name="clubs"
+                   value="musique">
 
-            </p>
+            Club Musique
+
+        </label>
+
+        <label>
+
+            <input type="checkbox"
+                   name="clubs"
+                   value="sport">
+
+            Club Sport
 
         </label>
 
     </div>
 
 </div>
+
 <!-- ================= BOUTON ================= -->
 
 <div class="form-group">
@@ -389,9 +370,6 @@ class="photo-preview">
 
 </div>
 
-</form>
-
-</div>
 
 <!-- ================= FOOTER ================= -->
 

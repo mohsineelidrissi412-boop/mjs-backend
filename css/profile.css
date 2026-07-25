@@ -1,48 +1,32 @@
-/* ==========================
-   PAGE PROFIL
-========================== */
-
-body{
-    background:#f4f6f9;
-}
-
-/* Conteneur */
-
-.profile-container{
-
-    max-width:1100px;
-    margin:40px auto;
-    padding:20px;
-
-}
-
-/* Carte */
+/*==============================
+    PAGE PROFIL
+==============================*/
 
 .profile-card{
 
-    background:white;
+    background:#fff;
     border-radius:12px;
     padding:35px;
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
 
 }
 
 .profile-card h1{
 
-    text-align:center;
     color:#0066cc;
+    text-align:center;
     margin-bottom:30px;
 
 }
 
-/* ==========================
-   PHOTO
-========================== */
+/*==============================
+    PHOTO
+==============================*/
 
 .photo-section{
 
     text-align:center;
-    margin-bottom:30px;
+    margin-bottom:35px;
 
 }
 
@@ -53,7 +37,6 @@ body{
     border-radius:50%;
     object-fit:cover;
     border:5px solid #0066cc;
-    margin-bottom:20px;
     transition:.3s;
 
 }
@@ -67,9 +50,10 @@ body{
 .change-photo{
 
     display:inline-block;
+    margin-top:20px;
+    padding:12px 25px;
     background:#0066cc;
-    color:white;
-    padding:10px 22px;
+    color:#fff;
     border-radius:8px;
     cursor:pointer;
     transition:.3s;
@@ -82,59 +66,57 @@ body{
 
 }
 
-/* ==========================
-   TABLEAU
-========================== */
+/*==============================
+    INFORMATIONS
+==============================*/
 
-.profile-table{
+.profile-info{
 
-    width:100%;
-    border-collapse:collapse;
-    margin-top:20px;
+    margin-top:30px;
 
 }
 
-.profile-table tr{
+.info-row{
 
-    border-bottom:1px solid #e5e5e5;
-
-}
-
-.profile-table td{
-
-    padding:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 0;
+    border-bottom:1px solid #eee;
 
 }
 
-.profile-table td:first-child{
+.info-row span{
 
-    width:240px;
     color:#0066cc;
     font-weight:bold;
+    font-size:17px;
 
 }
 
-.profile-table td:last-child{
+.info-row strong{
 
-    color:#555;
+    color:#444;
+    font-size:17px;
 
 }
 
-/* ==========================
-   BOUTONS
-========================== */
+/*==============================
+    BOUTON
+==============================*/
 
 .blue-btn{
 
-    margin-top:30px;
+    display:block;
+    margin:35px auto 0;
+    padding:14px 30px;
     background:#0066cc;
     color:white;
     border:none;
-    padding:13px 25px;
     border-radius:8px;
     cursor:pointer;
-    transition:.3s;
     font-size:16px;
+    transition:.3s;
 
 }
 
@@ -144,36 +126,17 @@ body{
 
 }
 
-.cancel-btn{
-
-    background:#777;
-    color:white;
-    border:none;
-    padding:13px 25px;
-    border-radius:8px;
-    cursor:pointer;
-    transition:.3s;
-
-}
-
-.cancel-btn:hover{
-
-    background:#555;
-
-}
-
-/* ==========================
-   FORMULAIRE
-========================== */
+/*==============================
+    FORMULAIRE MODIFICATION
+==============================*/
 
 .edit-form{
 
     display:none;
-    background:white;
     margin-top:35px;
-    padding:35px;
-    border-radius:12px;
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    padding:30px;
+    background:#f8f9fa;
+    border-radius:10px;
 
 }
 
@@ -186,21 +149,16 @@ body{
 .edit-form h2{
 
     color:#0066cc;
-    margin-bottom:25px;
-
-}
-
-.edit-form form{
-
-    display:grid;
-    gap:18px;
+    margin-bottom:20px;
 
 }
 
 .edit-form input,
 .edit-form select{
 
-    padding:13px;
+    width:100%;
+    padding:12px;
+    margin-bottom:18px;
     border:1px solid #ccc;
     border-radius:8px;
     font-size:15px;
@@ -210,33 +168,67 @@ body{
 .edit-form input:focus,
 .edit-form select:focus{
 
-    outline:none;
     border-color:#0066cc;
+    outline:none;
 
 }
 
-/* ==========================
-   RESPONSIVE
-========================== */
+.form-buttons{
+
+    display:flex;
+    gap:15px;
+
+}
+
+.save-btn{
+
+    flex:1;
+    background:#0066cc;
+    color:white;
+    border:none;
+    padding:13px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+
+}
+
+.save-btn:hover{
+
+    background:#0052a3;
+
+}
+
+.cancel-btn{
+
+    flex:1;
+    background:#777;
+    color:white;
+    border:none;
+    padding:13px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+
+}
+
+.cancel-btn:hover{
+
+    background:#555;
+
+}
+
+/*==============================
+    RESPONSIVE
+==============================*/
 
 @media(max-width:768px){
 
-.profile-card{
+.info-row{
 
-    padding:20px;
-
-}
-
-.profile-table td{
-
-    display:block;
-    width:100%;
-
-}
-
-.profile-table td:first-child{
-
-    padding-bottom:5px;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:8px;
 
 }
 
@@ -246,5 +238,111 @@ body{
     height:130px;
 
 }
+
+.form-buttons{
+
+    flex-direction:column;
+
+}
+
+}
+
+
+
+
+
+
+
+
+
+.edit-input{
+    width:100%;
+    padding:10px;
+    border:1px solid #0066cc;
+    border-radius:8px;
+    font-size:16px;
+}
+
+
+/* ==========================
+        CV ENCADRANT
+========================== */
+
+.cv-box{
+
+    width:100%;
+    margin-top:15px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px 22px;
+
+    background:#f8f9fc;
+
+    border:1px solid #dfe6ef;
+
+    border-radius:12px;
+
+}
+
+.cv-info{
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    font-size:17px;
+    color:#333;
+
+}
+
+.cv-buttons{
+
+    display:flex;
+    gap:12px;
+
+}
+
+.cv-btn{
+
+    text-decoration:none;
+
+    padding:10px 22px;
+
+    border-radius:8px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.view-btn{
+
+    background:#0066cc;
+    color:white;
+
+}
+
+.view-btn:hover{
+
+    background:#0052a3;
+
+}
+
+.edit-btn{
+
+    background:#28a745;
+    color:white;
+
+}
+
+.edit-btn:hover{
+
+    background:#218838;
 
 }

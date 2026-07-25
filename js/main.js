@@ -468,33 +468,68 @@ if(registerForm){
 
 
 
+// ======================================
+// Bouton d'accès
+// ======================================
+
+const accessBtn = document.getElementById("accessBtn");
+
+if (accessBtn) {
+
+    if (localStorage.getItem("hasAccount") === "true") {
+
+        accessBtn.textContent = "Accéder à mon espace";
+
+        accessBtn.href = "login.html";
+
+    } else {
+
+        accessBtn.textContent = "Nous rejoindre";
+
+        accessBtn.href = "register.html";
+
+    }
+
+}
 
 
 
+const accountType = document.getElementById("accountType");
+const cvSection = document.getElementById("cvSection");
+const clubsSection = document.getElementById("clubsSection");
+const clubsTitle = document.getElementById("clubsTitle");
 
+function updateForm() {
 
+    if (!accountType || !cvSection || !clubsSection || !clubsTitle) return;
 
+    cvSection.style.display = "none";
+    clubsSection.style.display = "none";
 
+    if (accountType.value === "member") {
 
+        clubsSection.style.display = "block";
+        clubsTitle.textContent = "Choisissez les clubs que vous souhaitez rejoindre";
 
+    }
 
+    else if (accountType.value === "trainer") {
 
+        cvSection.style.display = "block";
+        clubsSection.style.display = "block";
+        clubsTitle.textContent = "Choisissez les clubs que vous souhaitez encadrer";
 
+    }
 
+    else if (accountType.value === "admin") {
 
+        cvSection.style.display = "none";
+        clubsSection.style.display = "none";
 
+    }
 
+}
 
+updateForm();
 
-
-
-
-
-
-
-
-
-
-
-
-
+accountType.addEventListener("change", updateForm);

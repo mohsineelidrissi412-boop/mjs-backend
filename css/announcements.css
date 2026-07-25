@@ -1,0 +1,139 @@
+/*=====================================
+        ANNONCES
+======================================*/
+
+.page-title{
+
+    color:#0066cc;
+    font-size:32px;
+    margin-bottom:30px;
+
+}
+
+/*=====================================
+        CARTE
+======================================*/
+
+.announcement-card{
+
+    background:#fff;
+    border-radius:12px;
+    padding:25px;
+    margin-bottom:25px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    transition:.3s;
+
+}
+
+.announcement-card:hover{
+
+    transform:translateY(-5px);
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+
+}
+
+/*=====================================
+        EN-TÊTE
+======================================*/
+
+.announcement-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+    flex-wrap:wrap;
+    gap:10px;
+
+}
+
+.club-name{
+
+    background:#0066cc;
+    color:#fff;
+    padding:8px 18px;
+    border-radius:20px;
+    font-size:14px;
+    font-weight:600;
+
+}
+
+.announcement-date{
+
+    color:#777;
+    font-size:14px;
+
+}
+
+/*=====================================
+        TITRE
+======================================*/
+
+.announcement-card h2{
+
+    color:#0066cc;
+    margin-bottom:15px;
+
+}
+
+/*=====================================
+        TEXTE
+======================================*/
+
+.announcement-card p{
+
+    color:#555;
+    line-height:1.8;
+    margin-bottom:25px;
+
+}
+
+/*=====================================
+        BOUTON
+======================================*/
+
+.details-btn{
+
+    display:inline-block;
+    background:#0066cc;
+    color:#fff;
+    text-decoration:none;
+    padding:12px 25px;
+    border-radius:8px;
+    transition:.3s;
+
+}
+
+.details-btn:hover{
+
+    background:#0052a3;
+
+}
+
+/*=====================================
+        RESPONSIVE
+======================================*/
+
+@media(max-width:768px){
+
+.page-title{
+
+    font-size:26px;
+
+}
+
+.announcement-header{
+
+    flex-direction:column;
+    align-items:flex-start;
+
+}
+
+.details-btn{
+
+    width:100%;
+    text-align:center;
+
+}
+
+}

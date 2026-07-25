@@ -5,11 +5,13 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Mon Profil</title>
 
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/membre.css">
     <link rel="stylesheet" href="../css/profile.css">
 
 </head>
@@ -42,234 +44,255 @@
 
     <div class="nav-links">
 
-        <a href="dashboard.html">
-            Tableau de bord
-        </a>
+        <a href="../public/index.html">Accueil</a>
 
-        <a href="../public/index.html">
-            Accueil
+        <a href="../public/news.html">Actualités</a>
+
+        <a href="../public/events.html">Événements</a>
+
+        <a href="../public/clubs.html">Clubs</a>
+
+        <a href="../public/pass_jeunes.html">Passe Jeunes</a>
+
+        <a href="../public/login.html"
+           class="join-btn">
+            Déconnexion
         </a>
 
     </div>
 
 </nav>
 
-<!-- ================= PROFIL ================= -->
+<!-- ================= CONTENU ================= -->
 
-<div class="profile-container">
+<div class="dashboard-container">
 
-    <div class="profile-card">
+    <!-- MENU LATÉRAL -->
 
-        <h1>
+    <aside class="sidebar">
 
-            Mon Profil
+        <div class="member-card">
 
-        </h1>
+            <img src="../images/members/default.png"
+                 class="member-photo">
 
-        <div class="photo-section">
+            <h3>Mohamed</h3>
 
-            <img
-                src="../images/members/default.png"
-                id="profile-photo"
-                class="profile-photo">
-
-            <label
-                for="photo-input"
-                class="change-photo">
-
-                Changer la photo
-
-            </label>
-
-            <input
-                type="file"
-                id="photo-input"
-                accept="image/*"
-                hidden>
+            <p>Membre</p>
 
         </div>
 
-        <table class="profile-table">
+        <ul>
 
-            <tr>
+            <li>
 
-                <td>Nom</td>
+                <a href="dashboard.html">
+                     Tableau de bord
+                </a>
 
-                <td id="nom">
+            </li>
 
-                    El Alaoui
+            <li class="active">
 
-                </td>
+                <a href="profile.html">
+                     Mon Profil
+                </a>
 
-            </tr>
+            </li>
 
-            <tr>
+            <li>
 
-                <td>Prénom</td>
+                <a href="my_clubs.html">
+                     Mes Clubs
+                </a>
 
-                <td id="prenom">
+            </li>
 
-                    Mohamed
+            <li>
 
-                </td>
+                <a href="my_events.html">
+                     Mes Événements
+                </a>
 
-            </tr>
+            </li>
 
-            <tr>
+            
+            <li>
 
-                <td>Âge</td>
+                <a href="announcements.html">
+                     Annonces
+                </a>
 
-                <td id="age">
+            </li>
 
-                    18 ans
+            <li>
 
-                </td>
+                <a href="settings.html">
+                     Paramètres
+                </a>
 
-            </tr>
+            </li>
 
-            <tr>
+            <li>
 
-                <td>Sexe</td>
+                <a href="../public/login.html">
+                     Déconnexion
+                </a>
 
-                <td id="sexe">
+            </li>
 
-                    Masculin
+        </ul>
 
-                </td>
+    </aside>
 
-            </tr>
+    <!-- CONTENU -->
 
-            <tr>
+    <main class="dashboard-content">
 
-                <td>Téléphone</td>
+        <div class="profile-card">
 
-                <td id="telephone">
+            <h1>
 
-                    0612345678
+                Mon Profil
 
-                </td>
+            </h1>
 
-            </tr>
+            <div class="photo-section">
 
-            <tr>
+                <img src="../images/members/default.png"
+                     id="profile-photo"
+                     class="profile-photo">
 
-                <td>Email</td>
+                <label for="photo-input"
+                       class="change-photo">
 
-                <td id="email">
+                    Changer la photo
 
-                    mohamed@gmail.com
+                </label>
 
-                </td>
+                <input
+                    type="file"
+                    id="photo-input"
+                    accept="image/*"
+                    hidden>
 
-            </tr>
+            </div>
 
-            <tr>
+            <div class="profile-info">
 
-                <td>Date d'inscription</td>
+                <div class="info-row">
 
-                <td>
+                    <span>Nom</span>
 
-                    15 Septembre 2025
+                    <strong id="nom">
 
-                </td>
+                        El Alaoui
 
-            </tr>
+                    </strong>
 
-            <tr>
+                </div>
 
-                <td>Clubs rejoints</td>
+                <div class="info-row">
 
-                <td>
+                    <span>Prénom</span>
 
-                    Club Informatique, Club Robotique
+                    <strong id="prenom">
 
-                </td>
+                        Mohamed
 
-            </tr>
+                    </strong>
 
-        </table>
+                </div>
 
-        <button
-            id="edit-profile"
-            class="blue-btn">
+                <div class="info-row">
 
-            Modifier mes informations
+                    <span>Âge</span>
 
-        </button>
+                    <strong id="age">
 
-    </div>
+                        18 ans
 
-    <!-- ================= FORMULAIRE ================= -->
+                    </strong>
 
-    <div
-        id="edit-form"
-        class="edit-form">
+                </div>
 
-        <h2>
+                <div class="info-row">
 
-            Modifier mes informations
+                    <span>Sexe</span>
 
-        </h2>
+                    <strong id="sexe">
 
-        <form>
+                        Masculin
 
-            <input
-                id="edit-nom"
-                type="text"
-                placeholder="Nom">
+                    </strong>
 
-            <input
-                id="edit-prenom"
-                type="text"
-                placeholder="Prénom">
+                </div>
 
-            <input
-                id="edit-age"
-                type="number"
-                placeholder="Âge">
+                <div class="info-row">
 
-            <select id="edit-sexe">
+                    <span>Téléphone</span>
 
-                <option>Masculin</option>
+                    <strong id="telephone">
 
-                <option>Féminin</option>
+                        0612345678
 
-            </select>
+                    </strong>
 
-            <input
-                id="edit-phone"
-                type="tel"
-                placeholder="Téléphone">
+                </div>
 
-            <input
-                id="edit-email"
-                type="email"
-                placeholder="Adresse email">
+                <div class="info-row">
+
+                    <span>Email</span>
+
+                    <strong id="email">
+
+                        mohamed@gmail.com
+
+                    </strong>
+
+                </div>
+
+                <div class="info-row">
+
+                    <span>Date d'inscription</span>
+
+                    <strong>
+
+                        15 Septembre 2025
+
+                    </strong>
+
+                </div>
+
+                <div class="info-row">
+
+                    <span>Clubs rejoints</span>
+
+                    <strong>
+
+                        Informatique, Robotique
+
+                    </strong>
+
+                </div>
+
+            </div>
 
             <button
-                type="button"
-                id="save-profile"
+                id="edit-profile"
                 class="blue-btn">
 
-                Enregistrer
+                Modifier mes informations
 
             </button>
 
-            <button
-                type="button"
-                id="cancel-profile"
-                class="cancel-btn">
+        </div>
 
-                Annuler
-
-            </button>
-
-        </form>
-
-    </div>
+    </main>
 
 </div>
 
+<script src="../js/membre.js"></script>
 <script src="../js/profile.js"></script>
 
 </body>

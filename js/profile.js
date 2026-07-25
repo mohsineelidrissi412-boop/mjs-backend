@@ -1,125 +1,231 @@
-// ================================
-// Modifier les informations
-// ================================
+// ==============================
+// Sélection des éléments
+// ==============================
 
-const editButton = document.getElementById("edit-profile");
-const editForm = document.getElementById("edit-form");
+const editBtn = document.getElementById("edit-profile");
+const profileCard = document.querySelector(".profile-card");
 
-const cancelButton = document.getElementById("cancel-profile");
-const saveButton = document.getElementById("save-profile");
+// ==============================
+// Création du formulaire
+// ==============================
 
-// Afficher le formulaire
+const form = document.createElement("div");
 
-if(editButton){
+form.className = "edit-form";
 
-    editButton.addEventListener("click",()=>{
+form.innerHTML = `
 
-        document.getElementById("edit-nom").value =
-        document.getElementById("nom").textContent.trim();
+<h2>Modifier mes informations</h2>
 
-        document.getElementById("edit-prenom").value =
-        document.getElementById("prenom").textContent.trim();
+<input
+type="text"
+id="edit-nom"
+placeholder="Nom">
 
-        document.getElementById("edit-age").value =
-        parseInt(document.getElementById("age").textContent);
+<input
+type="text"
+id="edit-prenom"
+placeholder="Prénom">
 
-        document.getElementById("edit-sexe").value =
-        document.getElementById("sexe").textContent.trim();
+<input
+type="number"
+id="edit-age"
+placeholder="Âge">
 
-        document.getElementById("edit-phone").value =
-        document.getElementById("telephone").textContent.trim();
+<select id="edit-sexe">
 
-        document.getElementById("edit-email").value =
-        document.getElementById("email").textContent.trim();
+    <option>Masculin</option>
 
-        editForm.classList.add("show");
+    <option>Féminin</option>
 
-        window.scrollTo({
+</select>
 
-            top:document.body.scrollHeight,
+<input
+type="text"
+id="edit-telephone"
+placeholder="Téléphone">
 
-            behavior:"smooth"
+<input
+type="email"
+id="edit-email"
+placeholder="Adresse Email">
 
-        });
+<div class="form-buttons">
 
-    });
+<button
+class="save-btn"
+id="save-profile">
 
-}
+Enregistrer
 
-// Annuler
+</button>
 
-if(cancelButton){
+<button
+class="cancel-btn"
+id="cancel-profile">
 
-    cancelButton.addEventListener("click",()=>{
+Annuler
 
-        editForm.classList.remove("show");
+</button>
 
-    });
+</div>
 
-}
+`;
 
+profileCard.appendChild(form);
+
+// ==============================
+// Ouvrir le formulaire
+// ==============================
+
+editBtn.addEventListener("click", () => {
+
+    document.getElementById("edit-nom").value =
+    document.getElementById("nom").textContent;
+
+    document.getElementById("edit-prenom").value =
+    document.getElementById("prenom").textContent;
+
+    document.getElementById("edit-age").value =
+    document.getElementById("age").textContent.replace(" ans","");
+
+    document.getElementById("edit-sexe").value =
+    document.getElementById("sexe").textContent;
+
+    document.getElementById("edit-telephone").value =
+    document.getElementById("telephone").textContent;
+
+    document.getElementById("edit-email").value =
+    document.getElementById("email").textContent;
+
+    form.classList.add("show");
+
+});
+
+// ==============================
 // Enregistrer
+// ==============================
 
-if(saveButton){
+document.addEventListener("click",(e)=>{
 
-    saveButton.addEventListener("click",()=>{
+if(e.target.id==="save-profile"){
 
-        document.getElementById("nom").textContent =
-        document.getElementById("edit-nom").value;
+document.getElementById("nom").textContent =
+document.getElementById("edit-nom").value;
 
-        document.getElementById("prenom").textContent =
-        document.getElementById("edit-prenom").value;
+document.getElementById("prenom").textContent =
+document.getElementById("edit-prenom").value;
 
-        document.getElementById("age").textContent =
-        document.getElementById("edit-age").value + " ans";
+document.getElementById("age").textContent =
+document.getElementById("edit-age").value+" ans";
 
-        document.getElementById("sexe").textContent =
-        document.getElementById("edit-sexe").value;
+document.getElementById("sexe").textContent =
+document.getElementById("edit-sexe").value;
 
-        document.getElementById("telephone").textContent =
-        document.getElementById("edit-phone").value;
+document.getElementById("telephone").textContent =
+document.getElementById("edit-telephone").value;
 
-        document.getElementById("email").textContent =
-        document.getElementById("edit-email").value;
+document.getElementById("email").textContent =
+document.getElementById("edit-email").value;
 
-        editForm.classList.remove("show");
+alert("Les informations ont été mises à jour.");
 
-        alert("Vos informations ont été mises à jour avec succès.");
-
-    });
+form.classList.remove("show");
 
 }
 
-// =====================================
-// Changer la photo de profil
-// =====================================
+});
 
-const photoInput =
+// ==============================
+// Annuler
+// ==============================
+
+document.addEventListener("click",(e)=>{
+
+if(e.target.id==="cancel-profile"){
+
+form.classList.remove("show");
+
+}
+
+});
+
+// ==============================
+// Changement de photo
+// ==============================
+
+const inputPhoto =
 document.getElementById("photo-input");
 
-const profilePhoto =
+const photo =
 document.getElementById("profile-photo");
 
-if(photoInput){
+inputPhoto.addEventListener("change",function(){
 
-    photoInput.addEventListener("change",function(){
+const file=this.files[0];
 
-        const file = this.files[0];
+if(file){
 
-        if(file){
+const reader=new FileReader();
 
-            const reader = new FileReader();
+reader.onload=function(e){
 
-            reader.onload = function(e){
+photo.src=e.target.result;
 
-                profilePhoto.src = e.target.result;
+}
 
-            }
+reader.readAsDataURL(file);
 
-            reader.readAsDataURL(file);
+}
 
-        }
+});
 
-    });
+
+/* ==========================
+   CV ENCADRANT
+========================== */
+
+.cv-actions{
+
+    display:flex;
+    gap:15px;
+    margin-top:20px;
+
+}
+
+.blue-btn,
+.green-btn{
+
+    display:inline-block;
+    padding:12px 20px;
+    border-radius:8px;
+    text-decoration:none;
+    cursor:pointer;
+    font-weight:bold;
+    color:white;
+
+}
+
+.blue-btn{
+
+    background:#0066cc;
+
+}
+
+.green-btn{
+
+    background:#28a745;
+
+}
+
+.blue-btn:hover{
+
+    background:#0052a3;
+
+}
+
+.green-btn:hover{
+
+    background:#218838;
 
 }

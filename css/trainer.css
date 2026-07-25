@@ -409,3 +409,20 @@ body{
 
 
 
+.club-logo{
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    object-fit:cover;
+    display:block;
+    margin:20px auto;
+    border:4px solid #0066cc;
+    flex-shrink:0;
+}
+
+
+.blue-btn{
+    display:inline-block;
+    text-align:center;
+    text-decoration:none;
+}

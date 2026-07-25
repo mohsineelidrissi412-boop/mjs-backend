@@ -1,0 +1,193 @@
+/*=====================================
+        PAGE DÉTAILS CLUB
+======================================*/
+
+body{
+
+    background:#f5f7fb;
+
+}
+
+/*=====================================
+        CONTENEUR
+======================================*/
+
+.club-details-container{
+
+    max-width:1100px;
+    margin:40px auto;
+    padding:20px;
+
+}
+
+/*=====================================
+        BOUTON RETOUR
+======================================*/
+
+.back-btn{
+
+    display:inline-block;
+    margin-bottom:25px;
+    padding:12px 20px;
+    background:#0066cc;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+    transition:.3s;
+
+}
+
+.back-btn:hover{
+
+    background:#0052a3;
+
+}
+
+/*=====================================
+        TITRE
+======================================*/
+
+#club-title{
+
+    text-align:center;
+    color:#0066cc;
+    font-size:38px;
+    margin-bottom:30px;
+
+}
+
+/*=====================================
+        SLIDER
+======================================*/
+
+.slider{
+
+    position:relative;
+    width:100%;
+    height:520px;
+    overflow:hidden;
+    border-radius:12px;
+    background:white;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+
+}
+
+.slider img{
+
+    width:100%;
+    height:100%;
+    object-fit:cover;
+
+}
+
+/*=====================================
+        BOUTONS
+======================================*/
+
+.prev,
+.next{
+
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:55px;
+    height:55px;
+    border:none;
+    border-radius:50%;
+    background:rgba(0,102,204,.85);
+    color:white;
+    cursor:pointer;
+    font-size:24px;
+    transition:.3s;
+
+}
+
+.prev:hover,
+.next:hover{
+
+    background:#0052a3;
+
+}
+
+.prev{
+
+    left:20px;
+
+}
+
+.next{
+
+    right:20px;
+
+}
+
+/*=====================================
+        DESCRIPTION
+======================================*/
+
+.description-card{
+
+    margin-top:35px;
+    background:white;
+    padding:35px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.description-card h2{
+
+    color:#0066cc;
+    margin-bottom:20px;
+
+}
+
+.description-card p{
+
+    color:#555;
+    line-height:1.9;
+    text-align:justify;
+    font-size:17px;
+
+}
+
+/*=====================================
+        RESPONSIVE
+======================================*/
+
+@media(max-width:768px){
+
+.slider{
+
+    height:300px;
+
+}
+
+#club-title{
+
+    font-size:28px;
+
+}
+
+.description-card{
+
+    padding:20px;
+
+}
+
+.description-card p{
+
+    font-size:15px;
+
+}
+
+.prev,
+.next{
+
+    width:45px;
+    height:45px;
+    font-size:20px;
+
+}
+
+}

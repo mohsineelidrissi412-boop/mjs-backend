@@ -1,0 +1,66 @@
+// ======================================
+// PARAMÈTRES
+// ======================================
+
+const savePasswordBtn = document.getElementById("savePassword");
+
+savePasswordBtn.addEventListener("click", function () {
+
+    const currentPassword = document.getElementById("currentPassword").value.trim();
+
+    const newPassword = document.getElementById("newPassword").value.trim();
+
+    const confirmPassword = document.getElementById("confirmPassword").value.trim();
+
+    // Vérifier que tous les champs sont remplis
+    if (
+        currentPassword === "" ||
+        newPassword === "" ||
+        confirmPassword === ""
+    ) {
+
+        alert("Veuillez remplir tous les champs.");
+
+        return;
+
+    }
+
+    // Vérifier que les nouveaux mots de passe sont identiques
+    if (newPassword !== confirmPassword) {
+
+        alert("Les nouveaux mots de passe ne correspondent pas.");
+
+        return;
+
+    }
+
+    // Vérifier une longueur minimale
+    if (newPassword.length < 6) {
+
+        alert("Le nouveau mot de passe doit contenir au moins 6 caractères.");
+
+        return;
+
+    }
+
+    // Simulation de modification
+    alert("Votre mot de passe a été modifié avec succès.");
+
+    // Réinitialiser les champs
+    document.getElementById("currentPassword").value = "";
+    document.getElementById("newPassword").value = "";
+    document.getElementById("confirmPassword").value = "";
+
+});
+
+// ======================================
+// LANGUE
+// ======================================
+
+const language = document.getElementById("language");
+
+language.addEventListener("change", function () {
+
+    alert("La langue sera enregistrée après la connexion à la base de données.");
+
+});
