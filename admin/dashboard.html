@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - Plateforme de Gestion</title>
+    
+    <!-- Liens vers les CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    
+    <!-- FontAwesome pour les icônes (Optionnel) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div style="width:40px; height:40px; background:var(--primary-color); border-radius:8px;"></div>
+            <h2>AdminPanel</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item active">
+                <i class="fas fa-home"></i> Vue d'ensemble
+            </a>
+            <a href="users.html" class="nav-item">
+                <i class="fas fa-user"></i> Mon Profil
+            </a>
+            <a href="news.html" class="nav-item">
+                <i class="fas fa-newspaper"></i> Publications
+            </a>
+            <a href="clubs.html" class="nav-item">
+                <i class="fas fa-users"></i> Gestion des Clubs
+            </a>
+            <a href="events.html" class="nav-item">
+                <i class="fas fa-calendar-alt"></i> Événements
+            </a>
+            <a href="settings.html" class="nav-item">
+                <i class="fas fa-cog"></i> Paramètres
+            </a>
+        </nav>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+        
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <button class="mobile-toggle"><i class="fas fa-bars"></i></button>
+            <h1 class="topbar-title">Vue d'ensemble</h1>
+            
+            <div class="topbar-actions">
+                <div class="search-bar">
+                    <i class="fas fa-search text-muted"></i>
+                    <input type="text" placeholder="Rechercher...">
+                </div>
+                
+                <button class="notification-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=4F46E5&color=fff" alt="Admin Avatar">
+                    <div class="user-info">
+                        <p class="name">Admin User</p>
+                        <p class="role">Administrateur</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT AREA -->
+        <main class="content-area">
+            
+            <!-- Statistiques / Analytics -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>1,245</h3>
+                        <p>Total des membres</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>34</h3>
+                        <p>Événements ce mois</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>12</h3>
+                        <p>Clubs actifs</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exemple de contenu supplémentaire -->
+            <div class="card">
+                <h2>Activité récente</h2>
+                <p style="color:var(--text-muted); margin-top:10px;">Le graphique ou le tableau d'activité viendra ici.</p>
+            </div>
+            
+        </main>
+    </div>
+
+</body>
+</html>

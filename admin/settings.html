@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paramètres - Admin</title>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div style="width:40px; height:40px; background:var(--primary-color); border-radius:8px;"></div>
+            <h2>AdminPanel</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item">
+                <i class="fas fa-home"></i> Vue d'ensemble
+            </a>
+            <a href="users.html" class="nav-item">
+                <i class="fas fa-user"></i> Mon Profil
+            </a>
+            <a href="news.html" class="nav-item">
+                <i class="fas fa-newspaper"></i> Publications
+            </a>
+            <a href="clubs.html" class="nav-item">
+                <i class="fas fa-users"></i> Gestion des Clubs
+            </a>
+            <a href="events.html" class="nav-item">
+                <i class="fas fa-calendar-alt"></i> Événements
+            </a>
+            <a href="settings.html" class="nav-item active">
+                <i class="fas fa-cog"></i> Paramètres
+            </a>
+        </nav>
+    </aside>
+
+    <div class="main-wrapper">
+        <header class="topbar">
+            <button class="mobile-toggle"><i class="fas fa-bars"></i></button>
+            <h1 class="topbar-title">Paramètres Généraux</h1>
+            <div class="topbar-actions">
+                <button class="btn btn-primary">Enregistrer</button>
+            </div>
+        </header>
+
+        <main class="content-area">
+            
+            <div class="card" style="max-width: 800px; margin: 0 auto;">
+                <h3 style="margin:0 0 24px 0; border-bottom:1px solid #E2E8F0; padding-bottom:12px;">Coordonnées de l'institution</h3>
+                
+                <div class="form-group">
+                    <label class="form-label">Email Institutionnel</label>
+                    <input type="email" class="form-control" placeholder="contact@institution.com" value="contact@mj-alqods.ma">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Numéro de téléphone</label>
+                    <input type="tel" class="form-control" placeholder="+212 ..." value="+212 5 22 00 00 00">
+                </div>
+                
+                <h3 style="margin:40px 0 24px 0; border-bottom:1px solid #E2E8F0; padding-bottom:12px;">Réseaux Sociaux</h3>
+                
+                <div class="form-group">
+                    <label class="form-label"><i class="fab fa-facebook" style="color:#1877F2;"></i> Lien Facebook</label>
+                    <input type="url" class="form-control" placeholder="https://facebook.com/..." value="https://facebook.com/mjalqods">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label"><i class="fab fa-instagram" style="color:#E4405F;"></i> Lien Instagram</label>
+                    <input type="url" class="form-control" placeholder="https://instagram.com/..." value="https://instagram.com/mjalqods">
+                </div>
+                
+                <h3 style="margin:40px 0 24px 0; border-bottom:1px solid #E2E8F0; padding-bottom:12px;">Localisation</h3>
+                
+                <div class="form-group">
+                    <label class="form-label">Adresse Physique</label>
+                    <textarea class="form-control" rows="3">Maison des Jeunes Al Qods, Quartier Al Qods, Casablanca, Maroc</textarea>
+                </div>
+                
+                <div style="margin-top:32px; display:flex; justify-content:flex-end;">
+                    <button class="btn btn-primary">Enregistrer les modifications</button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+</body>
+</html>
