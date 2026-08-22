@@ -2,14 +2,16 @@ import { Router } from 'express';
 import { AnnouncementsController } from './announcements.controller';
 import { requireAuth, requireRole } from '../../middlewares/auth';
 import { validateRequest } from '../../middlewares/validation';
-import { createAnnouncementSchema, updateAnnouncementSchema } from './announcements.dto';
+import { createAnnouncementSchema } from './announcements.dto';
 
 const router = Router();
 
-router.post('/', requireAuth, requireRole(['ENCADRANT']), validateRequest(createAnnouncementSchema), AnnouncementsController.createAnnouncement);
+// Public
+router.get('/', AnnouncementsController.getAllAnnouncements);
 
-router.put('/:id', requireAuth, requireRole(['ENCADRANT']), validateRequest(updateAnnouncementSchema), AnnouncementsController.updateAnnouncement);
-
+// Admin or Encadrant
+router.post('/', requireAuth, requireRole(['ADMIN', 'ENCADRANT']), validateRequest(createAnnouncementSchema), AnnouncementsController.createAnnouncement);
+router.put('/:id', requireAuth, requireRole(['ADMIN', 'ENCADRANT']), validateRequest(createAnnouncementSchema), AnnouncementsController.updateAnnouncement);
 router.delete('/:id', requireAuth, requireRole(['ADMIN', 'ENCADRANT']), AnnouncementsController.deleteAnnouncement);
 
 export default router;

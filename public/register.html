@@ -1,380 +1,90 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Nous rejoindre</title>
-
     <link rel="stylesheet" href="../css/style.css">
-
 </head>
-
 <body>
 
 <!-- ================= NAVBAR ================= -->
-
 <nav class="navbar">
-
     <div class="logo-section">
-
-        <img src="../images/logo.png"
-             class="logo"
-             alt="Logo">
-
+        <img src="../images/logo.png" class="logo" alt="Logo">
         <div class="logo-text">
-
-            <span class="title">
-                Maison des Jeunes Alqods
-            </span>
-
-            <span class="subtitle">
-                Benguerir
-            </span>
-
+            <span class="title">Maison des Jeunes Alqods</span>
+            <span class="subtitle">Benguerir</span>
         </div>
-
     </div>
-
     <div class="nav-links">
-
-        <a href="index.html">
-            Accueil
-        </a>
-
-        <a href="news.html">
-            Actualités
-        </a>
-
-        <a href="events.html">
-            Événements
-        </a>
-
-        <a href="clubs.html">
-            Clubs
-        </a>
-
-        <a href="pass_jeunes.html">
-            Pass Jeunes
-        </a>
-
-        <a href="register.html"
-           class="join-btn">
-            Nous rejoindre
-        </a>
-
+        <a href="index.html">Accueil</a>
+        <a href="news.html">Actualités</a>
+        <a href="events.html">Événements</a>
+        <a href="clubs.html">Clubs</a>
+        <a href="pass_jeunes.html">Pass Jeunes</a>
+        <a href="register.html" class="join-btn">Nous rejoindre</a>
     </div>
-
 </nav>
 
 <!-- ================= FORMULAIRE ================= -->
-
 <div class="register-container">
-
-<h1>
-
-Rejoindre la Maison des Jeunes
-
-</h1>
-
-<div
-id="success-message"
-class="success-message">
-
-Votre demande a été envoyée avec succès.
-
-</div>
-
-<form
-id="register-form"
-class="register-form">
-
-<div class="form-group">
-
-<label>
-
-Nom
-
-</label>
-
-<input
-type="text"
-placeholder="Votre nom"
-required>
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Prénom
-
-</label>
-
-<input
-type="text"
-placeholder="Votre prénom"
-required>
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Âge
-
-</label>
-
-<input
-type="number"
-min="6"
-max="99"
-required>
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Sexe
-
-</label>
-
-<select required>
-
-<option value="">
-
-Sélectionner
-
-</option>
-
-<option>
-
-Masculin
-
-</option>
-
-<option>
-
-Féminin
-
-</option>
-
-</select>
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Téléphone
-
-</label>
-
-<input
-type="tel"
-placeholder="06XXXXXXXX"
-required>
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Adresse e-mail
-
-</label>
-
-<input
-type="email"
-placeholder="nom@email.com"
-required>
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Photo
-
-</label>
-
-<input
-type="file"
-id="photo"
-accept="image/*"
-required>
-
-</div>
-
-<img
-id="preview"
-class="photo-preview">
-
-
-
-
-
-
-<!-- ================= TYPE DE COMPTE ================= -->
-
-<div class="form-section">
-
-    <h2>Type de compte</h2>
-
-    <select id="accountType">
-
-        <option value="member">Membre</option>
-
-        <option value="trainer">Encadrant</option>
-
-        <option value="admin">Administrateur</option>
-
-    </select>
-
-</div>
-
-<!-- ================= MOT DE PASSE ================= -->
-
-<div class="form-section">
-
-    <div class="form-group">
-
-        <label>Mot de passe</label>
-
-        <input
-            type="password"
-            id="password"
-            required>
-
+    <h1>Rejoindre la Maison des Jeunes</h1>
+    <div id="success-message" class="success-message">
+        Votre demande a été envoyée avec succès. En attente de validation.
     </div>
 
-    <div class="form-group">
+    <form id="register-form" class="register-form">
+        <div class="form-group">
+            <label>Nom</label>
+            <input type="text" id="reg-lastname" placeholder="Votre nom" required>
+        </div>
+        <div class="form-group">
+            <label>Prénom</label>
+            <input type="text" id="reg-firstname" placeholder="Votre prénom" required>
+        </div>
+        <div class="form-group">
+            <label>Téléphone</label>
+            <input type="tel" id="reg-phone" placeholder="06XXXXXXXX" required>
+        </div>
+        <div class="form-group">
+            <label>Adresse e-mail</label>
+            <input type="email" id="reg-email" placeholder="nom@email.com" required>
+        </div>
 
-        <label>Confirmer le mot de passe</label>
+        <!-- ================= TYPE DE COMPTE ================= -->
+        <div class="form-section">
+            <h2>Type de compte</h2>
+            <select id="accountType">
+                <option value="member">Membre</option>
+                <option value="trainer">Encadrant</option>
+                <option value="admin">Administrateur</option>
+            </select>
+        </div>
 
-        <input
-            type="password"
-            id="confirmPassword"
-            required>
+        <!-- ================= MOT DE PASSE ================= -->
+        <div class="form-section">
+            <div class="form-group">
+                <label>Mot de passe</label>
+                <input type="password" id="reg-password" required>
+            </div>
+            <div class="form-group">
+                <label>Confirmer le mot de passe</label>
+                <input type="password" id="reg-confirm" required>
+            </div>
+        </div>
 
-    </div>
-
+        <!-- ================= BOUTON ================= -->
+        <div class="form-group">
+            <button type="submit" class="submit-btn" id="reg-submit">
+                Envoyer la demande
+            </button>
+        </div>
+    </form>
 </div>
 
-<!-- ================= CV ================= -->
-
-<div id="cvSection" style="display:none;">
-
-    <h2>Curriculum Vitae</h2>
-
-    <div class="form-group">
-
-        <label>CV (PDF)</label>
-
-        <input
-            type="file"
-            id="cv"
-            accept=".pdf">
-
-    </div>
-
-</div>
-
-<!-- ================= CLUBS ================= -->
-
-<div id="clubsSection" style="display:none;">
-
-    <h2 id="clubsTitle">
-
-        Choisissez vos clubs
-
-    </h2>
-
-    <div class="clubs-list">
-
-        <label>
-
-            <input type="checkbox"
-                   name="clubs"
-                   value="informatique">
-
-            Club Informatique
-
-        </label>
-
-        <label>
-
-            <input type="checkbox"
-                   name="clubs"
-                   value="robotique">
-
-            Club Robotique
-
-        </label>
-
-        <label>
-
-            <input type="checkbox"
-                   name="clubs"
-                   value="theatre">
-
-            Club Théâtre
-
-        </label>
-
-        <label>
-
-            <input type="checkbox"
-                   name="clubs"
-                   value="musique">
-
-            Club Musique
-
-        </label>
-
-        <label>
-
-            <input type="checkbox"
-                   name="clubs"
-                   value="sport">
-
-            Club Sport
-
-        </label>
-
-    </div>
-
-</div>
-
-<!-- ================= BOUTON ================= -->
-
-<div class="form-group">
-
-    <button
-        type="submit"
-        class="submit-btn">
-
-        Envoyer la demande
-
-    </button>
-
-</div>
-
-
-<!-- ================= FOOTER ================= -->
-
+<script src="../js/api.js"></script>
 <script src="../js/main.js"></script>
-
+<script src="../js/register.js"></script>
 </body>
-
 </html>

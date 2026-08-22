@@ -25,25 +25,24 @@ const slider = document.getElementById('slider');
 
 if (slider) {
 
-    fetch('/api/sliders')
+    fetch('http://localhost:8000/api/v1/settings')
         .then(response => response.json())
         .then(data => {
 
-            data.forEach((slide, index) => {
+            const slides = data.slider_images || [];
+
+            slides.forEach((slide, index) => {
 
                 slider.innerHTML += `
                     <div class="slide ${index === 0 ? 'active' : ''}">
-                        <img src="${slide.image}" alt="${slide.titre}">
-                        <div class="slide-content">
-                            <h2>${slide.titre}</h2>
-                        </div>
+                        <img src="http://localhost:8000${slide.image_url}" alt="Slide ${index + 1}">
                     </div>
                 `;
             });
 
         })
         .catch(error => {
-            console.log(error);
+            console.log('[slider] Erreur lors du chargement des images:', error);
         });
 
 }
@@ -413,58 +412,8 @@ if(servicePrev){
 
 
 /*=========================
-      REGISTER
+      REGISTER (Moved to register.js)
 =========================*/
-
-const photoInput =
-document.getElementById("photo");
-
-const preview =
-document.getElementById("preview");
-
-if(photoInput){
-
-    photoInput.addEventListener("change",function(){
-
-        const file=this.files[0];
-
-        if(file){
-
-            preview.src=URL.createObjectURL(file);
-
-            preview.style.display="block";
-
-        }
-
-    });
-
-}
-
-const registerForm=
-document.getElementById("register-form");
-
-const success=
-document.getElementById("success-message");
-
-if(registerForm){
-
-    registerForm.addEventListener("submit",function(e){
-
-        e.preventDefault();
-
-        success.style.display="block";
-
-        window.scrollTo({
-
-            top:0,
-
-            behavior:"smooth"
-
-        });
-
-    });
-
-}
 
 
 

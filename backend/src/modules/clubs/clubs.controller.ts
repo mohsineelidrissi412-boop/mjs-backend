@@ -1,172 +1,246 @@
 import { Response } from 'express';
 import { AuthenticatedRequest } from '../../middlewares/auth';
-import { mockClubs, mockUsers, mockJoinRequests, Club, JoinRequest } from '../../core/database';
+import { supabase } from '../../core/database';
 
 export class ClubsController {
-  static getAllClubs(req: AuthenticatedRequest, res: Response) {
-    return res.json(mockClubs);
+  // ─── GET all clubs (public) ───────────────────────────────────
+  static async getAllClubs(req: AuthenticatedRequest, res: Response) {
+    const { data: clubs, error } = await supabase
+      .from('clubs')
+      .select(`
+        id, name, description, created_at, updated_at,
+        club_images (id, image_url, order_index),
+        club_encadrants (encadrant_id),
+        club_members (member_id)
+      `)
+      .order('created_at', { ascending: false });
+
+    if (error) return res.status(500).json({ message: 'Erreur lors de la récupération des clubs.' });
+    return res.json(clubs);
   }
 
-  static getClubById(req: AuthenticatedRequest, res: Response) {
+  // ─── GET club by id ───────────────────────────────────────────
+  static async getClubById(req: AuthenticatedRequest, res: Response) {
     const id = parseInt(req.params.id);
-    const club = mockClubs.find(c => c.id === id);
-
-    if (!club) {
-      return res.status(404).json({ message: "Club non trouvé." });
-    }
-
     const userId = req.user?.userId;
     const role = req.user?.role;
 
-    // L'encadrant ne peut accéder qu'à ses propres clubs
-    if (role === 'ENCADRANT' && userId && !club.encadrant_ids.includes(userId)) {
-      return res.status(403).json({ message: "Accès refusé. Vous n'encadrez pas ce club." });
+    const { data: club, error } = await supabase
+      .from('clubs')
+      .select(`
+        id, name, description, created_at, updated_at,
+        club_images (id, image_url, order_index),
+        club_encadrants (encadrant_id),
+        club_members (member_id)
+      `)
+      .eq('id', id)
+      .single();
+
+    if (error || !club) return res.status(404).json({ message: 'Club non trouvé.' });
+
+    // Encadrant can only access their own clubs
+    if (role === 'ENCADRANT' && userId) {
+      const encadrantIds = (club.club_encadrants as any[]).map((e: any) => e.encadrant_id);
+      if (!encadrantIds.includes(userId)) {
+        return res.status(403).json({ message: "Accès refusé. Vous n'encadrez pas ce club." });
+      }
     }
 
-    // Récupérer les requêtes d'adhésion en attente pour ce club
-    const joinRequests = mockJoinRequests.filter(r => r.club_id === id);
+    const { data: joinRequests } = await supabase
+      .from('join_requests')
+      .select('id, user_id, status, created_at')
+      .eq('club_id', id);
 
-    return res.json({
-      ...club,
-      join_requests: joinRequests
-    });
+    return res.json({ ...club, join_requests: joinRequests || [] });
   }
 
-  static createClub(req: AuthenticatedRequest, res: Response) {
+  // ─── POST create club (Admin only) ───────────────────────────
+  static async createClub(req: AuthenticatedRequest, res: Response) {
     const { name, description } = req.body;
 
-    const exists = mockClubs.find(c => c.name.toLowerCase() === name.toLowerCase());
-    if (exists) {
-      return res.status(400).json({ message: "Un club portant ce nom existe déjà." });
+    const { data: newClub, error } = await supabase
+      .from('clubs')
+      .insert({ name, description })
+      .select()
+      .single();
+
+    if (error) {
+      if (error.code === '23505') {
+        return res.status(400).json({ message: 'Un club portant ce nom existe déjà.' });
+      }
+      console.error('[clubs] createClub error:', error);
+      return res.status(500).json({ message: 'Erreur lors de la création du club.' });
     }
 
-    const newClub: Club = {
-      id: mockClubs.length + 1,
-      name,
-      description,
-      logo_url: req.file ? req.file.path : undefined,
-      encadrant_ids: [],
-      member_ids: []
-    };
+    // If images uploaded, insert them
+    if (req.files && Array.isArray(req.files)) {
+      const images = (req.files as Express.Multer.File[]).map((f, i) => ({
+        club_id: newClub.id,
+        image_url: `/uploads/${f.filename}`,
+        order_index: i
+      }));
+      await supabase.from('club_images').insert(images);
+    }
 
-    mockClubs.push(newClub);
     return res.status(201).json(newClub);
   }
 
-  static updateClub(req: AuthenticatedRequest, res: Response) {
+  // ─── PUT update club (Admin only) ─────────────────────────────
+  static async updateClub(req: AuthenticatedRequest, res: Response) {
     const id = parseInt(req.params.id);
-    const club = mockClubs.find(c => c.id === id);
-
-    if (!club) {
-      return res.status(404).json({ message: "Club non trouvé." });
-    }
-
     const { name, description } = req.body;
+    const updates: Record<string, any> = {};
 
-    if (name) club.name = name;
-    if (description) club.description = description;
-    if (req.file) {
-      club.logo_url = req.file.path;
+    if (name) updates.name = name;
+    if (description) updates.description = description;
+
+    const { data: updatedClub, error } = await supabase
+      .from('clubs')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error || !updatedClub) return res.status(404).json({ message: 'Club non trouvé.' });
+
+    // If new images uploaded, append them
+    if (req.files && Array.isArray(req.files)) {
+      const { data: existing } = await supabase
+        .from('club_images')
+        .select('order_index')
+        .eq('club_id', id)
+        .order('order_index', { ascending: false })
+        .limit(1);
+
+      const nextIndex = existing && existing.length > 0 ? existing[0].order_index + 1 : 0;
+      const images = (req.files as Express.Multer.File[]).map((f, i) => ({
+        club_id: id,
+        image_url: `/uploads/${f.filename}`,
+        order_index: nextIndex + i
+      }));
+      await supabase.from('club_images').insert(images);
     }
 
-    return res.json({ message: "Club mis à jour avec succès.", club });
+    return res.json({ message: 'Club mis à jour avec succès.', club: updatedClub });
   }
 
-  static deleteClub(req: AuthenticatedRequest, res: Response) {
+  // ─── DELETE club (Admin only) ─────────────────────────────────
+  static async deleteClub(req: AuthenticatedRequest, res: Response) {
     const id = parseInt(req.params.id);
-    const index = mockClubs.findIndex(c => c.id === id);
-
-    if (index === -1) {
-      return res.status(404).json({ message: "Club non trouvé." });
-    }
-
-    mockClubs.splice(index, 1);
-    return res.json({ message: "Club supprimé avec succès." });
+    const { error } = await supabase.from('clubs').delete().eq('id', id);
+    if (error) return res.status(404).json({ message: 'Club non trouvé.' });
+    return res.json({ message: 'Club supprimé avec succès.' });
   }
 
-  static assignEncadrant(req: AuthenticatedRequest, res: Response) {
-    const id = parseInt(req.params.id);
+  // ─── POST assign encadrant to club (Admin only) ───────────────
+  static async assignEncadrant(req: AuthenticatedRequest, res: Response) {
+    const club_id = parseInt(req.params.id);
     const { encadrant_id } = req.body;
 
-    const club = mockClubs.find(c => c.id === id);
-    if (!club) {
-      return res.status(404).json({ message: "Club non trouvé." });
-    }
+    // Verify club exists
+    const { data: club } = await supabase.from('clubs').select('id').eq('id', club_id).single();
+    if (!club) return res.status(404).json({ message: 'Club non trouvé.' });
 
-    const encadrant = mockUsers.find(u => u.id === encadrant_id && u.role === 'ENCADRANT');
-    if (!encadrant) {
-      return res.status(400).json({ message: "L'utilisateur spécifié n'existe pas ou n'est pas un encadrant." });
-    }
+    // Verify encadrant exists and has correct role
+    const { data: encadrant } = await supabase
+      .from('users')
+      .select('id')
+      .eq('id', encadrant_id)
+      .eq('role', 'ENCADRANT')
+      .single();
 
-    if (!club.encadrant_ids.includes(encadrant_id)) {
-      club.encadrant_ids.push(encadrant_id);
-    }
+    if (!encadrant) return res.status(400).json({ message: "L'utilisateur spécifié n'existe pas ou n'est pas un encadrant." });
 
-    return res.json({ message: "Encadrant assigné au club avec succès.", club });
+    const { error } = await supabase
+      .from('club_encadrants')
+      .upsert({ club_id, encadrant_id }, { onConflict: 'club_id,encadrant_id' });
+
+    if (error) return res.status(500).json({ message: "Erreur lors de l'assignation de l'encadrant." });
+
+    return res.json({ message: 'Encadrant assigné au club avec succès.' });
   }
 
-  static joinClub(req: AuthenticatedRequest, res: Response) {
-    const clubId = parseInt(req.params.id);
-    const userId = req.user?.userId;
+  // ─── POST member requests to join a club ──────────────────────
+  static async joinClub(req: AuthenticatedRequest, res: Response) {
+    const club_id = parseInt(req.params.id);
+    const user_id = req.user?.userId;
 
-    if (!userId) {
-      return res.status(401).json({ message: "Non authentifié." });
-    }
+    if (!user_id) return res.status(401).json({ message: 'Non authentifié.' });
 
-    const club = mockClubs.find(c => c.id === clubId);
-    if (!club) {
-      return res.status(404).json({ message: "Club non trouvé." });
-    }
+    // Check club exists
+    const { data: club } = await supabase.from('clubs').select('id').eq('id', club_id).single();
+    if (!club) return res.status(404).json({ message: 'Club non trouvé.' });
 
-    if (club.member_ids.includes(userId)) {
-      return res.status(400).json({ message: "Vous êtes déjà membre de ce club." });
-    }
+    // Check already a member
+    const { data: membership } = await supabase
+      .from('club_members')
+      .select('member_id')
+      .eq('club_id', club_id)
+      .eq('member_id', user_id)
+      .single();
 
-    const existingRequest = mockJoinRequests.find(r => r.club_id === clubId && r.user_id === userId && r.status === 'PENDING');
-    if (existingRequest) {
-      return res.status(400).json({ message: "Vous avez déjà une demande d'adhésion en cours pour ce club." });
-    }
+    if (membership) return res.status(400).json({ message: 'Vous êtes déjà membre de ce club.' });
 
-    const newRequest: JoinRequest = {
-      id: mockJoinRequests.length + 1,
-      club_id: clubId,
-      user_id: userId,
-      status: 'PENDING'
-    };
+    // Check pending request already exists
+    const { data: existingReq } = await supabase
+      .from('join_requests')
+      .select('id')
+      .eq('club_id', club_id)
+      .eq('user_id', user_id)
+      .eq('status', 'PENDING')
+      .single();
 
-    mockJoinRequests.push(newRequest);
+    if (existingReq) return res.status(400).json({ message: "Vous avez déjà une demande d'adhésion en cours pour ce club." });
+
+    const { data: newRequest, error } = await supabase
+      .from('join_requests')
+      .insert({ club_id, user_id, status: 'PENDING' })
+      .select()
+      .single();
+
+    if (error) return res.status(500).json({ message: "Erreur lors de l'envoi de la demande." });
+
     return res.status(201).json({ message: "Demande d'adhésion envoyée avec succès.", request: newRequest });
   }
 
-  static handleJoinRequest(req: AuthenticatedRequest, res: Response) {
-    const clubId = parseInt(req.params.id);
-    const userId = parseInt(req.params.userId);
+  // ─── PATCH approve or reject a join request ───────────────────
+  static async handleJoinRequest(req: AuthenticatedRequest, res: Response) {
+    const club_id = parseInt(req.params.id);
+    const user_id = parseInt(req.params.userId);
     const { status } = req.body; // 'APPROVED' | 'REJECTED'
-
-    const club = mockClubs.find(c => c.id === clubId);
-    if (!club) {
-      return res.status(404).json({ message: "Club non trouvé." });
-    }
 
     const role = req.user?.role;
     const currentUserId = req.user?.userId;
 
-    // Si encadrant, vérifier qu'il gère ce club
-    if (role === 'ENCADRANT' && currentUserId && !club.encadrant_ids.includes(currentUserId)) {
-      return res.status(403).json({ message: "Vous n'avez pas l'autorisation de gérer les adhésions de ce club." });
+    // Encadrant can only manage their own clubs
+    if (role === 'ENCADRANT' && currentUserId) {
+      const { data: enc } = await supabase
+        .from('club_encadrants')
+        .select('encadrant_id')
+        .eq('club_id', club_id)
+        .eq('encadrant_id', currentUserId)
+        .single();
+
+      if (!enc) return res.status(403).json({ message: "Vous n'avez pas l'autorisation de gérer les adhésions de ce club." });
     }
 
-    const joinRequest = mockJoinRequests.find(r => r.club_id === clubId && r.user_id === userId && r.status === 'PENDING');
-    if (!joinRequest) {
-      return res.status(404).json({ message: "Demande d'adhésion non trouvée." });
-    }
+    // Update the join request
+    const { data: updated, error } = await supabase
+      .from('join_requests')
+      .update({ status })
+      .eq('club_id', club_id)
+      .eq('user_id', user_id)
+      .eq('status', 'PENDING')
+      .select()
+      .single();
 
-    joinRequest.status = status;
+    if (error || !updated) return res.status(404).json({ message: "Demande d'adhésion non trouvée." });
 
+    // If approved, add to club_members
     if (status === 'APPROVED') {
-      if (!club.member_ids.includes(userId)) {
-        club.member_ids.push(userId);
-      }
+      await supabase
+        .from('club_members')
+        .upsert({ club_id, member_id: user_id }, { onConflict: 'club_id,member_id' });
     }
 
     return res.json({ message: `La demande a été ${status === 'APPROVED' ? 'acceptée' : 'refusée'} avec succès.` });

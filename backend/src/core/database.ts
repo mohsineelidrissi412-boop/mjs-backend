@@ -1,24 +1,63 @@
-import { Security } from './security';
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  console.error('\n❌ [database] SUPABASE_URL ou SUPABASE_SERVICE_KEY manquant dans le fichier .env');
+  console.error('   → Ouvre backend/.env et remplis SUPABASE_URL et SUPABASE_SERVICE_KEY\n');
+  process.exit(1);
+}
+
+export const supabase = createClient(supabaseUrl, supabaseKey, {
+  auth: { persistSession: false }
+});
+
+console.log('[database] Client Supabase initialisé avec succès.');
+
+// ─── TypeScript Interfaces (aligned with Supabase schema) ─────
 
 export interface User {
   id: number;
   email: string;
-  passwordHash: string;
+  password_hash: string;
   first_name: string;
   last_name: string;
+  phone?: string;
+  birth_date?: string;
   role: 'ADMIN' | 'ENCADRANT' | 'MEMBER';
   status: 'ACTIVE' | 'PENDING' | 'SUSPENDED';
   profile_picture_url?: string;
   cv_url?: string;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export interface Club {
   id: number;
   name: string;
   description: string;
-  logo_url?: string;
-  encadrant_ids: number[];
-  member_ids: number[];
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface ClubImage {
+  id: number;
+  club_id: number;
+  image_url: string;
+  order_index: number;
+}
+
+export interface ClubEncadrant {
+  club_id: number;
+  encadrant_id: number;
+  assigned_at?: string;
+}
+
+export interface ClubMember {
+  club_id: number;
+  member_id: number;
+  joined_at?: string;
 }
 
 export interface Event {
@@ -29,21 +68,58 @@ export interface Event {
   event_time: string;
   club_id?: number;
   creator_id: number;
+  created_at?: string;
+  updated_at?: string;
 }
 
-export interface Publication {
+export interface EventImage {
   id: number;
-  text: string;
+  event_id: number;
+  image_url: string;
+  order_index: number;
+}
+
+export interface News {
+  id: number;
+  title: string;
+  content: string;
   author_id: number;
-  image_urls: string[];
+  published_at?: string;
+  share_count?: number;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface NewsImage {
+  id: number;
+  news_id: number;
+  image_url: string;
+  order_index: number;
+}
+
+export interface Comment {
+  id: number;
+  news_id: number;
+  author_id: number;
+  content: string;
+  created_at?: string;
+}
+
+export interface NewsLike {
+  news_id: number;
+  user_id: number;
+  created_at?: string;
 }
 
 export interface Announcement {
   id: number;
   title: string;
   content: string;
-  club_id: number;
+  club_id?: number;
   creator_id: number;
+  published_at?: string;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export interface JoinRequest {
@@ -51,111 +127,52 @@ export interface JoinRequest {
   club_id: number;
   user_id: number;
   status: 'PENDING' | 'APPROVED' | 'REJECTED';
+  created_at?: string;
+  updated_at?: string;
 }
 
-export interface Comment {
+export interface SiteSettings {
   id: number;
-  publication_id: number;
-  author_id: number;
-  author_name: string;
-  content: string;
-  created_at: string;
+  logo_url?: string;
+  updated_at?: string;
 }
 
-export interface Interaction {
-  publication_id: number;
+export interface SiteSliderImage {
+  id: number;
+  image_url: string;
+  order_index: number;
+  created_at?: string;
+}
+
+export interface Contact {
+  id: number;
+  type: 'PHONE' | 'EMAIL' | 'ADDRESS' | 'FACEBOOK' | 'INSTAGRAM' | 'WHATSAPP' | 'OTHER';
+  label?: string;
+  value: string;
+  order_index: number;
+  created_at?: string;
+}
+
+export interface PassJeunesService {
+  id: number;
+  service_name: string;
+  description: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface PassJeunesImage {
+  id: number;
+  service_id: number;
+  image_url: string;
+  order_index: number;
+}
+
+export interface PasswordResetToken {
+  id: number;
   user_id: number;
-  type: 'LIKE' | 'DISLIKE';
+  token: string;
+  expires_at: string;
+  used: boolean;
+  created_at?: string;
 }
-
-// BDD en mémoire
-export const mockUsers: User[] = [];
-export const mockClubs: Club[] = [];
-export const mockEvents: Event[] = [];
-export const mockPublications: Publication[] = [];
-export const mockAnnouncements: Announcement[] = [];
-export const mockJoinRequests: JoinRequest[] = [];
-export const mockComments: Comment[] = [];
-export const mockInteractions: Interaction[] = [];
-
-// Initialiser les données par défaut au démarrage
-export const initializeDatabase = async () => {
-  if (mockUsers.length === 0) {
-    // 1. Utilisateurs
-    mockUsers.push({
-      id: 1,
-      email: 'admin@mj.com',
-      passwordHash: await Security.hashPassword('admin123'),
-      first_name: 'Super',
-      last_name: 'Admin',
-      role: 'ADMIN',
-      status: 'ACTIVE'
-    });
-
-    mockUsers.push({
-      id: 2,
-      email: 'encadrant@mj.com',
-      passwordHash: await Security.hashPassword('encadrant123'),
-      first_name: 'Jean',
-      last_name: 'Dupont',
-      role: 'ENCADRANT',
-      status: 'ACTIVE'
-    });
-
-    mockUsers.push({
-      id: 3,
-      email: 'member@mj.com',
-      passwordHash: await Security.hashPassword('member123'),
-      first_name: 'Amine',
-      last_name: 'Alami',
-      role: 'MEMBER',
-      status: 'ACTIVE'
-    });
-
-    // 2. Clubs
-    mockClubs.push({
-      id: 1,
-      name: 'Club Informatique',
-      description: 'Découverte de la programmation et du web.',
-      encadrant_ids: [2],
-      member_ids: [3]
-    });
-    mockClubs.push({
-      id: 2,
-      name: 'Club Robotique',
-      description: 'Conception et programmation de robots autonomes.',
-      encadrant_ids: [2],
-      member_ids: []
-    });
-
-    // 3. Événements
-    mockEvents.push({
-      id: 1,
-      title: 'Hackathon Al Qods 2026',
-      description: '24 heures de code non-stop.',
-      event_date: '2026-07-25',
-      event_time: '09:00',
-      club_id: 1,
-      creator_id: 2
-    });
-
-    // 4. Publications
-    mockPublications.push({
-      id: 1,
-      text: 'Bienvenue sur la nouvelle plateforme de la Maison des Jeunes !',
-      author_id: 1,
-      image_urls: []
-    });
-
-    // 5. Annonces
-    mockAnnouncements.push({
-      id: 1,
-      title: 'Session spéciale Arduino',
-      content: 'Ce samedi à 14h dans la salle Robotique.',
-      club_id: 2,
-      creator_id: 2
-    });
-
-    console.log('[database]: Base de données fictive initialisée avec succès.');
-  }
-};

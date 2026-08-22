@@ -1,36 +1,37 @@
 const loginForm = document.getElementById("loginForm");
+const submitBtn = loginForm.querySelector("button[type='submit']");
 
-loginForm.addEventListener("submit", function (e) {
-
+loginForm.addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const email = document.getElementById("email").value.trim();
-
     const password = document.getElementById("password").value.trim();
 
-    // Vérifier les champs
-
     if (email === "" || password === "") {
-
         alert("Veuillez remplir tous les champs.");
-
         return;
-
     }
 
-    // ================================
-    // Simulation de connexion
-    // ================================
+    try {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Connexion...";
 
-    // Plus tard, cette partie sera remplacée
-    // par la vérification dans la base de données.
+        // Call our new API wrapper
+        const user = await window.api.login(email, password);
 
-    localStorage.setItem("hasAccount", "true");
+        // Redirect based on role
+        if (user.role === 'ADMIN') {
+            window.location.href = "../admin/dashboard.html";
+        } else if (user.role === 'ENCADRANT') {
+            window.location.href = "../trainer/dashboard.html";
+        } else {
+            window.location.href = "../member/dashboard.html";
+        }
 
-    localStorage.setItem("memberEmail", email);
-
-    alert("Connexion réussie.");
-
-    window.location.href = "../member/dashboard.html";
-
+    } catch (error) {
+        alert("Erreur de connexion: " + error.message);
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Se connecter";
+    }
 });

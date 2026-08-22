@@ -1,119 +1,118 @@
 import { Response } from 'express';
 import { AuthenticatedRequest } from '../../middlewares/auth';
-import { mockUsers, User } from '../../core/database';
+import { supabase } from '../../core/database';
 import { Security } from '../../core/security';
 
 export class UsersController {
-  static getAllUsers(req: AuthenticatedRequest, res: Response) {
+  // ─── GET all users (Admin only) ───────────────────────────────
+  static async getAllUsers(req: AuthenticatedRequest, res: Response) {
     const { role, status } = req.query;
-    let users = mockUsers;
 
-    if (role) {
-      users = users.filter(u => u.role === role);
-    }
-    if (status) {
-      users = users.filter(u => u.status === status);
-    }
+    let query = supabase
+      .from('users')
+      .select('id, email, first_name, last_name, phone, birth_date, role, status, profile_picture_url, cv_url, created_at, updated_at')
+      .order('created_at', { ascending: false });
 
-    // Retourner les profils sans les hashes des mots de passe
-    const sanitizedUsers = users.map(({ passwordHash, ...u }) => u);
-    return res.json(sanitizedUsers);
+    if (role) query = query.eq('role', role as string);
+    if (status) query = query.eq('status', status as string);
+
+    const { data, error } = await query;
+    if (error) return res.status(500).json({ message: 'Erreur lors de la récupération des utilisateurs.' });
+
+    return res.json(data);
   }
 
-  static getUserById(req: AuthenticatedRequest, res: Response) {
+  // ─── GET user by id ───────────────────────────────────────────
+  static async getUserById(req: AuthenticatedRequest, res: Response) {
     const id = parseInt(req.params.id);
-    const user = mockUsers.find(u => u.id === id);
 
-    if (!user) {
-      return res.status(404).json({ message: "Utilisateur non trouvé." });
-    }
+    const { data: user, error } = await supabase
+      .from('users')
+      .select('id, email, first_name, last_name, phone, birth_date, role, status, profile_picture_url, cv_url, created_at, updated_at')
+      .eq('id', id)
+      .single();
 
-    const { passwordHash, ...sanitizedUser } = user;
-    return res.json(sanitizedUser);
+    if (error || !user) return res.status(404).json({ message: 'Utilisateur non trouvé.' });
+    return res.json(user);
   }
 
+  // ─── POST create user (Admin only) ───────────────────────────
   static async createUser(req: AuthenticatedRequest, res: Response) {
-    const { email, password, first_name, last_name, role } = req.body;
+    const { email, password, first_name, last_name, role, phone, birth_date } = req.body;
 
-    const exists = mockUsers.find(u => u.email === email);
-    if (exists) {
-      return res.status(400).json({ message: "Cet email est déjà utilisé." });
+    const { data: existing } = await supabase.from('users').select('id').eq('email', email).single();
+    if (existing) return res.status(400).json({ message: 'Cet email est déjà utilisé.' });
+
+    const password_hash = await Security.hashPassword(password);
+
+    const { data: newUser, error } = await supabase
+      .from('users')
+      .insert({ email, password_hash, first_name, last_name, role, phone: phone || null, birth_date: birth_date || null, status: 'ACTIVE' })
+      .select('id, email, first_name, last_name, role, status')
+      .single();
+
+    if (error) {
+      console.error('[users] createUser error:', error);
+      return res.status(500).json({ message: 'Erreur lors de la création de l\'utilisateur.' });
     }
 
-    const passwordHash = await Security.hashPassword(password);
-    const newUser: User = {
-      id: mockUsers.length + 1,
-      email,
-      passwordHash,
-      first_name,
-      last_name,
-      role,
-      status: 'ACTIVE'
-    };
-
-    mockUsers.push(newUser);
-    const { passwordHash: _, ...sanitized } = newUser;
-    return res.status(201).json(sanitized);
+    return res.status(201).json(newUser);
   }
 
+  // ─── PUT update user ──────────────────────────────────────────
   static async updateUser(req: AuthenticatedRequest, res: Response) {
     const id = parseInt(req.params.id);
-    const user = mockUsers.find(u => u.id === id);
 
-    if (!user) {
-      return res.status(404).json({ message: "Utilisateur non trouvé." });
-    }
-
-    // Vérifier les permissions (Admin ou propriétaire)
+    // Only admin or the user themselves can update
     if (req.user?.role !== 'ADMIN' && req.user?.userId !== id) {
-      return res.status(403).json({ message: "Action non autorisée." });
+      return res.status(403).json({ message: 'Action non autorisée.' });
     }
 
-    const { first_name, last_name, password } = req.body;
+    const { first_name, last_name, phone, birth_date, password } = req.body;
+    const updates: Record<string, any> = {};
 
-    if (first_name) user.first_name = first_name;
-    if (last_name) user.last_name = last_name;
-    if (password) {
-      user.passwordHash = await Security.hashPassword(password);
-    }
+    if (first_name) updates.first_name = first_name;
+    if (last_name) updates.last_name = last_name;
+    if (phone !== undefined) updates.phone = phone;
+    if (birth_date !== undefined) updates.birth_date = birth_date;
+    if (password) updates.password_hash = await Security.hashPassword(password);
 
-    // Gérer les uploads de fichiers s'ils sont présents
+    // Handle file uploads
     if (req.files) {
       const files = req.files as { [fieldname: string]: Express.Multer.File[] };
-      if (files['avatar'] && files['avatar'][0]) {
-        user.profile_picture_url = files['avatar'][0].path;
-      }
-      if (files['cv'] && files['cv'][0]) {
-        user.cv_url = files['cv'][0].path;
-      }
+      if (files['avatar']?.[0]) updates.profile_picture_url = `/uploads/${files['avatar'][0].filename}`;
+      if (files['cv']?.[0]) updates.cv_url = `/uploads/${files['cv'][0].filename}`;
     }
 
-    const { passwordHash, ...sanitized } = user;
-    return res.json({ message: "Profil mis à jour avec succès.", user: sanitized });
+    const { data: updatedUser, error } = await supabase
+      .from('users')
+      .update(updates)
+      .eq('id', id)
+      .select('id, email, first_name, last_name, phone, birth_date, role, status, profile_picture_url, cv_url')
+      .single();
+
+    if (error || !updatedUser) return res.status(404).json({ message: 'Utilisateur non trouvé.' });
+    return res.json({ message: 'Profil mis à jour avec succès.', user: updatedUser });
   }
 
-  static changeUserStatus(req: AuthenticatedRequest, res: Response) {
+  // ─── PATCH change user status (Admin only) ───────────────────
+  static async changeUserStatus(req: AuthenticatedRequest, res: Response) {
     const id = parseInt(req.params.id);
     const { status } = req.body;
 
-    const user = mockUsers.find(u => u.id === id);
-    if (!user) {
-      return res.status(404).json({ message: "Utilisateur non trouvé." });
-    }
+    const { error } = await supabase.from('users').update({ status }).eq('id', id);
+    if (error) return res.status(404).json({ message: 'Utilisateur non trouvé.' });
 
-    user.status = status;
     return res.json({ message: `Le statut du compte est désormais ${status}.` });
   }
 
-  static deleteUser(req: AuthenticatedRequest, res: Response) {
+  // ─── DELETE user (Admin only) ─────────────────────────────────
+  static async deleteUser(req: AuthenticatedRequest, res: Response) {
     const id = parseInt(req.params.id);
-    const index = mockUsers.findIndex(u => u.id === id);
 
-    if (index === -1) {
-      return res.status(404).json({ message: "Utilisateur non trouvé." });
-    }
+    const { error } = await supabase.from('users').delete().eq('id', id);
+    if (error) return res.status(404).json({ message: 'Utilisateur non trouvé.' });
 
-    mockUsers.splice(index, 1);
-    return res.json({ message: "Utilisateur supprimé avec succès." });
+    return res.json({ message: 'Utilisateur supprimé avec succès.' });
   }
 }
