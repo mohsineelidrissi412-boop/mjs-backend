@@ -26,11 +26,29 @@ const uploadDir = process.env.UPLOAD_DIR || './uploads';
 
 // ─── Middlewares globaux ───────────────────────────────────────
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production'
-    ? ['https://monsite.com']
-    : ['http://localhost:3000', 'http://localhost:5500', 'http://127.0.0.1:5500'],
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or local file:// openings)
+    if (!origin) return callback(null, true);
+    
+    // Add your allowed domains here
+    const allowedOrigins = [
+      'https://monsite.com', 
+      'http://localhost:3000', 
+      'http://localhost:5500', 
+      'http://127.0.0.1:5500',
+      'null'
+    ];
+    
+    // Allow if in the list, OR if it's a vercel preview/production domain
+    if (allowedOrigins.indexOf(origin) !== -1 || origin.includes('vercel.app')) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS policy violation'));
+    }
+  },
   credentials: true
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
